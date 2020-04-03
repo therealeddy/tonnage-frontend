@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 export default function Loading() {
   return (
-    <Container className="animated jello">
+    <Container>
       <img src={loading} alt="loading" />
     </Container>
   );
