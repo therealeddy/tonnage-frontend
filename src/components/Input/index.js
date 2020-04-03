@@ -8,7 +8,6 @@ export default function InputTheme({
   placeholder,
   name,
   label,
-  onChange,
   ...rest
 }) {
   return (
@@ -16,7 +15,6 @@ export default function InputTheme({
       <div className="form-group">
         <label htmlFor={id}>{label}</label>
         <Input
-          onChange={onChange}
           name={name}
           type={type}
           className="form-control"

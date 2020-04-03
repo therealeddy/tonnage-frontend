@@ -12,15 +12,26 @@ export default function Trucks() {
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function getData() {
-      const response = await api.get('/trucks');
-      setTrucks(response.data);
-      setLoading(false);
-    }
+  async function getData() {
+    const response = await api.get('/trucks');
+    setTrucks(response.data);
+    setLoading(false);
+  }
 
+  useEffect(() => {
     getData();
   }, []);
+
+  async function deleteTruck(id) {
+    const response = await api.delete(`/trucks/${id}`);
+
+    if (response.data.success) {
+      toast.success(response.data.success);
+      getData();
+    } else {
+      toast.error('Aconteceu algum erro, tente novamente!');
+    }
+  }
 
   return (
     <Container>
@@ -47,34 +58,42 @@ export default function Trucks() {
                 </tr>
               </thead>
               <tbody>
-                {trucks.map((item, index) => (
-                  <tr key={String(index)}>
-                    <th>{item.id}</th>
-                    <td>{item.board}</td>
-                    <td>{item.model}</td>
-                    <td>{item.brand}</td>
-                    <td className="d-flex justify-content-end">
-                      <Link
-                        to={`/edit/${item.id}`}
-                        className="btn btn-primary mr-4"
-                      >
-                        Editar
-                      </Link>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() =>
-                          toast.success(`Você deletou o caminhão ${item.id}!`)
-                        }
-                      >
-                        Deletar
-                      </button>
+                {trucks.length > 0 ? (
+                  <>
+                    {trucks.map((item, index) => (
+                      <tr key={String(index)}>
+                        <th>{item.id}</th>
+                        <td>{item.board}</td>
+                        <td>{item.model}</td>
+                        <td>{item.brand}</td>
+                        <td className="d-flex justify-content-end">
+                          <Link
+                            to={`/edit/${item.id}`}
+                            className="btn btn-primary mr-4"
+                          >
+                            Editar
+                          </Link>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => deleteTruck(item.id)}
+                          >
+                            Deletar
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center">
+                      Nenhum caminhão cadastrado!
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
-            <Pagination />
+            {/* <Pagination /> */}
           </div>
         )}
       </div>
