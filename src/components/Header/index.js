@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from './styles';
 import { pages } from './pages';
-import history from '~/services/history';
+// import history from '~/services/history';
 
 export default function Header() {
   return (
@@ -16,9 +16,9 @@ export default function Header() {
             <li key={String(index)}>
               <Link
                 to={item.url}
-                className={
-                  history.location.pathname === item.url ? 'active' : ''
-                }
+                // className={
+                //   history.location.pathname === item.url ? 'active' : ''
+                // }
               >
                 {item.title}
               </Link>

@@ -4,8 +4,11 @@ import { toast } from 'react-toastify';
 import { Container } from './styles';
 import api from '~/services/api';
 import { Loading, Pagination } from '~/components';
+import TitlePage from '~/utils/TitlePage';
 
 export default function Main() {
+  TitlePage('Caminhões');
+
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);
 

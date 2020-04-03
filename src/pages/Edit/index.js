@@ -3,6 +3,7 @@ import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { Input } from '~/components';
 import { Container } from './styles';
+import TitlePage from '~/utils/TitlePage';
 
 const schema = Yup.object().shape({
   placa: Yup.string().required('Campo obrigatório'),
@@ -14,6 +15,8 @@ export default function Edit({ match }) {
   function handleSubmit(data) {}
 
   const { params } = match;
+
+  TitlePage(`Editar Caminhão ${params.id}`);
 
   return (
     <Container>

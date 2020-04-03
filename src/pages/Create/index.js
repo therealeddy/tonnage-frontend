@@ -3,6 +3,7 @@ import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { Input } from '~/components';
 import { Container } from './styles';
+import TitlePage from '~/utils/TitlePage';
 
 const schema = Yup.object().shape({
   placa: Yup.string().required('Campo obrigatório'),
@@ -11,6 +12,8 @@ const schema = Yup.object().shape({
 });
 
 export default function Create() {
+  TitlePage('Cadastrar Caminhão');
+
   function handleSubmit(data) {}
 
   return (

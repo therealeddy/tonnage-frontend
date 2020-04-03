@@ -1,8 +1,10 @@
 import React from 'react';
 import { obras } from '~/images';
 import { Container } from './styles';
+import TitlePage from '~/utils/TitlePage';
 
 export default function Page404() {
+  TitlePage('Em obras');
   return (
     <Container>
       <div className="container d-flex flex-column align-items-center mt-5">
