@@ -44,7 +44,7 @@ export default function Edit({ match }) {
     }
 
     getData();
-  }, []);
+  }, [params]);
 
   TitlePage(`Editar Caminhão ${params.id}`);
 

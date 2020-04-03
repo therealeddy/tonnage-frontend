@@ -57,7 +57,6 @@ export default function Pagination({
                   className="page-link"
                   type="button"
                   onClick={() => setPaged(number)}
-                  className="page-link"
                 >
                   {number}
                 </button>

@@ -16,11 +16,11 @@ export default function Trucks() {
   const [totalPosts, setTotalPosts] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  async function getData() {
+  async function getData(paged) {
     setLoading(true);
     const response = await api.get('/trucks', {
       params: {
-        paged: currentPage
+        paged
       }
     });
 
@@ -32,7 +32,7 @@ export default function Trucks() {
   }
 
   useEffect(() => {
-    getData();
+    getData(currentPage);
   }, [currentPage]);
 
   async function deleteTruck(id) {
