@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Container } from './styles';
 import api from '~/services/api';
 import { Loading, Pagination } from '~/components';
@@ -11,8 +12,10 @@ export default function Trucks() {
 
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingDel, setLoadingDel] = useState(false);
 
   async function getData() {
+    setLoading(true);
     const response = await api.get('/trucks');
     setTrucks(response.data);
     setLoading(false);
@@ -23,6 +26,7 @@ export default function Trucks() {
   }, []);
 
   async function deleteTruck(id) {
+    setLoadingDel(true);
     const response = await api.delete(`/trucks/${id}`);
 
     if (response.data.success) {
@@ -31,6 +35,8 @@ export default function Trucks() {
     } else {
       toast.error('Aconteceu algum erro, tente novamente!');
     }
+
+    setLoadingDel(false);
   }
 
   return (
@@ -74,11 +80,20 @@ export default function Trucks() {
                             Editar
                           </Link>
                           <button
-                            type="button"
-                            className="btn btn-danger"
+                            type="submit"
+                            className={`btn btn-danger ${loadingDel &&
+                              'disabled btn-loading'}`}
+                            disabled={loadingDel}
                             onClick={() => deleteTruck(item.id)}
                           >
-                            Deletar
+                            {loadingDel ? (
+                              <AiOutlineLoading3Quarters
+                                color="#fff"
+                                size={14}
+                              />
+                            ) : (
+                              'Deletar'
+                            )}
                           </button>
                         </td>
                       </tr>

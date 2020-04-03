@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Input } from '~/components';
 import { Container } from './styles';
 import TitlePage from '~/utils/TitlePage';
@@ -17,7 +18,11 @@ const schema = Yup.object().shape({
 export default function Create() {
   TitlePage('Cadastrar Caminhão');
 
+  const [loading, setLoading] = useState(false);
+
   async function handleSubmit(data) {
+    setLoading(true);
+
     const response = await api.post('/trucks', data);
 
     if (response.data.success) {
@@ -26,6 +31,8 @@ export default function Create() {
     }
 
     toast.error(response.data.error);
+
+    setLoading(false);
   }
 
   return (
@@ -48,8 +55,16 @@ export default function Create() {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-success">
-              Cadastrar
+            <button
+              type="submit"
+              className={`btn btn-success ${loading && 'disabled btn-loading'}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <AiOutlineLoading3Quarters color="#fff" size={14} />
+              ) : (
+                'Cadastrar'
+              )}
             </button>
           </div>
         </Form>

@@ -1,6 +1,15 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, keyframes } from 'styled-components';
 
 import 'react-toastify/dist/ReactToastify.css';
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export default createGlobalStyle`
 
@@ -62,5 +71,14 @@ export default createGlobalStyle`
 
   .th-btn {
     width: 190px;
+  }
+
+  .btn-loading {
+    min-width: 100px;
+    pointer-events: none;
+    user-select: none;
+    svg {
+      animation: ${rotate} 0.4s linear infinite;
+    }
   }
 `;

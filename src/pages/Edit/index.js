@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { Input } from '~/components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { Input, Loading } from '~/components';
 import { Container } from './styles';
 import TitlePage from '~/utils/TitlePage';
 import api from '~/services/api';
@@ -17,6 +18,9 @@ const schema = Yup.object().shape({
 export default function Edit({ match }) {
   const { params } = match;
 
+  const [loading, setLoading] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(false);
+
   const [truck, setTruck] = useState({
     board: '',
     model: '',
@@ -25,6 +29,8 @@ export default function Edit({ match }) {
 
   useEffect(() => {
     async function getData() {
+      setLoadingPage(true);
+
       const response = await api.get(`/trucks/${params.id}`);
 
       if (response.data.error) {
@@ -33,6 +39,8 @@ export default function Edit({ match }) {
       }
 
       setTruck(response.data);
+
+      setLoadingPage(false);
     }
 
     getData();
@@ -41,6 +49,8 @@ export default function Edit({ match }) {
   TitlePage(`Editar Caminhão ${params.id}`);
 
   async function handleSubmit(data) {
+    setLoading(true);
+
     const response = await api.put(`/trucks/${params.id}`, data);
 
     if (response.data.success) {
@@ -49,6 +59,8 @@ export default function Edit({ match }) {
     }
 
     toast.error(response.data.error);
+
+    setLoading(false);
   }
 
   return (
@@ -58,45 +70,58 @@ export default function Edit({ match }) {
           <h1>Caminhão #{params.id}</h1>
         </div>
 
-        <Form schema={schema} onSubmit={handleSubmit}>
-          <div className="row mb-5">
-            <div className="col-lg-4">
-              <Input
-                id="placa"
-                type="text"
-                name="board"
-                label="Placa"
-                value={truck.board}
-                onChange={e => setTruck({ ...truck, board: e.target.value })}
-              />
+        {loadingPage ? (
+          <Loading />
+        ) : (
+          <Form schema={schema} onSubmit={handleSubmit}>
+            <div className="row mb-5">
+              <div className="col-lg-4">
+                <Input
+                  id="placa"
+                  type="text"
+                  name="board"
+                  label="Placa"
+                  value={truck.board}
+                  onChange={e => setTruck({ ...truck, board: e.target.value })}
+                />
+              </div>
+              <div className="col-lg-4">
+                <Input
+                  id="modelo"
+                  type="text"
+                  name="model"
+                  label="Modelo"
+                  value={truck.model}
+                  onChange={e => setTruck({ ...truck, model: e.target.value })}
+                />
+              </div>
+              <div className="col-lg-4">
+                <Input
+                  id="marca"
+                  type="text"
+                  name="brand"
+                  label="Marca"
+                  value={truck.brand}
+                  onChange={e => setTruck({ ...truck, brand: e.target.value })}
+                />
+              </div>
             </div>
-            <div className="col-lg-4">
-              <Input
-                id="modelo"
-                type="text"
-                name="model"
-                label="Modelo"
-                value={truck.model}
-                onChange={e => setTruck({ ...truck, model: e.target.value })}
-              />
+            <div className="d-flex justify-content-end">
+              <button
+                type="submit"
+                className={`btn btn-success ${loading &&
+                  'disabled btn-loading'}`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <AiOutlineLoading3Quarters color="#fff" size={14} />
+                ) : (
+                  'Salvar'
+                )}
+              </button>
             </div>
-            <div className="col-lg-4">
-              <Input
-                id="marca"
-                type="text"
-                name="brand"
-                label="Marca"
-                value={truck.brand}
-                onChange={e => setTruck({ ...truck, brand: e.target.value })}
-              />
-            </div>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-success">
-              Salvar
-            </button>
-          </div>
-        </Form>
+          </Form>
+        )}
       </div>
     </Container>
   );
