@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Container } from './styles';
 import { pages } from './pages';
-// import history from '~/services/history';
 
 export default function Header() {
   return (
@@ -14,14 +13,9 @@ export default function Header() {
         <ul>
           {pages.map((item, index) => (
             <li key={String(index)}>
-              <Link
-                to={item.url}
-                // className={
-                //   history.location.pathname === item.url ? 'active' : ''
-                // }
-              >
+              <NavLink to={item.url} activeClassName="active">
                 {item.title}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>

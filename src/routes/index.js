@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Header } from '~/components';
-import { Main, Create, Edit, Page404 } from '~/pages';
+import { Trucks, Create, Edit, Page404, Main } from '~/pages';
 
 export default function Routes() {
   return (
@@ -10,6 +10,7 @@ export default function Routes() {
       <div className="content">
         <Switch>
           <Route path="/" exact component={Main} />
+          <Route path="/caminhoes" component={Trucks} />
           <Route path="/create" component={Create} />
           <Route path="/edit/:id" component={Edit} />
 

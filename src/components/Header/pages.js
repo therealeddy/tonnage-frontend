@@ -1,7 +1,7 @@
 const pages = [
   {
     title: 'Caminhões',
-    url: '/'
+    url: '/caminhoes'
   },
   {
     title: 'Relatório',
