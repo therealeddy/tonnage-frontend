@@ -24,7 +24,9 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
     'no-console': 'off',
-    'react/jsx-props-no-spreading': 'off'
+    'react/jsx-props-no-spreading': 'off',
+    'no-plusplus': 'off',
+    'react/jsx-no-duplicate-props': 'off'
   },
   settings: {
     'import/resolver': 'babel-plugin-root-import'

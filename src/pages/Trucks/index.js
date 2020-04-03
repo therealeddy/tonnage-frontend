@@ -13,17 +13,27 @@ export default function Trucks() {
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingDel, setLoadingDel] = useState(false);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   async function getData() {
     setLoading(true);
-    const response = await api.get('/trucks');
-    setTrucks(response.data);
+    const response = await api.get('/trucks', {
+      params: {
+        paged: currentPage
+      }
+    });
+
+    setTrucks(response.data.rows);
+
+    setTotalPosts(response.data.count);
+
     setLoading(false);
   }
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [currentPage]);
 
   async function deleteTruck(id) {
     setLoadingDel(true);
@@ -37,6 +47,11 @@ export default function Trucks() {
     }
 
     setLoadingDel(false);
+    setCurrentPage(1);
+  }
+
+  function setPage(number) {
+    setCurrentPage(number);
   }
 
   return (
@@ -108,7 +123,12 @@ export default function Trucks() {
                 )}
               </tbody>
             </table>
-            {/* <Pagination /> */}
+            <Pagination
+              postsPerPage={5}
+              totalPosts={totalPosts}
+              setPaged={number => setPage(number)}
+              currentPage={currentPage}
+            />
           </div>
         )}
       </div>
