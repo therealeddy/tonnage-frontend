@@ -64,7 +64,7 @@ export default function Edit({ match }) {
   }
 
   return (
-    <Container>
+    <Container className="animated fadeIn">
       <div className="container">
         <div className="mb-5 pb-5">
           <h1>Caminhão #{params.id}</h1>

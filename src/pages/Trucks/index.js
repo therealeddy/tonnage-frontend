@@ -55,7 +55,7 @@ export default function Trucks() {
   }
 
   return (
-    <Container>
+    <Container className="animated fadeIn">
       <div className="container">
         <div className="d-flex align-items-center justify-content-between mb-5 pb-5">
           <h1>Caminhões</h1>
@@ -68,7 +68,7 @@ export default function Trucks() {
           <Loading />
         ) : (
           <div>
-            <table className="table table-hover mb-4">
+            <table className="table table-hover mb-4 animated fadeIn">
               <thead>
                 <tr>
                   <th>#</th>

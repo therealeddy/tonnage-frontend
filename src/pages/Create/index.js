@@ -36,7 +36,7 @@ export default function Create() {
   }
 
   return (
-    <Container>
+    <Container className="animated fadeIn">
       <div className="container">
         <div className="mb-5 pb-5">
           <h1>Adicionar Caminhão</h1>
