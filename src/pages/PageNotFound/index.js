@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { obras } from '~/images';
-import { Container } from './styles';
 import documentTitle from '~/utils/documentTitle';
+
+import { Container } from './styles';
 
 export default function PageNotFound() {
   documentTitle('Em obras');

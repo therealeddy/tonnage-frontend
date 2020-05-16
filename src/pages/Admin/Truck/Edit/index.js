@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from '@rocketseat/unform';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+
+import { Form } from '@rocketseat/unform';
+
 import { Input, Loading } from '~/components';
-import { Container } from './styles';
-import documentTitle from '~/utils/documentTitle';
 import api from '~/services/api';
 import history from '~/services/history';
+import documentTitle from '~/utils/documentTitle';
 import truckSchema from '~/validators/truck';
+
+import { Container } from './styles';
 
 export default function Edit({ match }) {
   const { params } = match;
@@ -19,7 +21,7 @@ export default function Edit({ match }) {
   const [truck, setTruck] = useState({
     board: '',
     model: '',
-    brand: ''
+    brand: '',
   });
 
   useEffect(() => {
@@ -77,7 +79,9 @@ export default function Edit({ match }) {
                   name="board"
                   label="Placa"
                   value={truck.board}
-                  onChange={e => setTruck({ ...truck, board: e.target.value })}
+                  onChange={(e) =>
+                    setTruck({ ...truck, board: e.target.value })
+                  }
                 />
               </div>
               <div className="col-lg-4">
@@ -87,7 +91,9 @@ export default function Edit({ match }) {
                   name="model"
                   label="Modelo"
                   value={truck.model}
-                  onChange={e => setTruck({ ...truck, model: e.target.value })}
+                  onChange={(e) =>
+                    setTruck({ ...truck, model: e.target.value })
+                  }
                 />
               </div>
               <div className="col-lg-4">
@@ -97,15 +103,18 @@ export default function Edit({ match }) {
                   name="brand"
                   label="Marca"
                   value={truck.brand}
-                  onChange={e => setTruck({ ...truck, brand: e.target.value })}
+                  onChange={(e) =>
+                    setTruck({ ...truck, brand: e.target.value })
+                  }
                 />
               </div>
             </div>
             <div className="d-flex justify-content-end">
               <button
                 type="submit"
-                className={`btn btn-success ${loading &&
-                  'disabled btn-loading'}`}
+                className={`btn btn-success ${
+                  loading && 'disabled btn-loading'
+                }`}
                 disabled={loading}
               >
                 {loading ? (

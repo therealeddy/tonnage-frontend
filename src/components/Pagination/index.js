@@ -6,7 +6,7 @@ export default function Pagination({
   currentPage,
   totalPosts,
   postsPerPage,
-  setPaged
+  setPaged,
 }) {
   const pageNumbers = [];
 
@@ -46,7 +46,7 @@ export default function Pagination({
                 </button>
               </li>
             )}
-            {pageNumbers.map(number => (
+            {pageNumbers.map((number) => (
               <li
                 className={
                   number === currentPage ? 'active page-item' : 'page-item'

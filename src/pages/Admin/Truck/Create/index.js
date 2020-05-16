@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Form } from '@rocketseat/unform';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+
+import { Form } from '@rocketseat/unform';
+
 import { Input } from '~/components';
-import { Container } from './styles';
-import documentTitle from '~/utils/documentTitle';
 import api from '~/services/api';
 import history from '~/services/history';
+import documentTitle from '~/utils/documentTitle';
 import truckSchema from '~/validators/truck';
+
+import { Container } from './styles';
 
 export default function Create() {
   documentTitle('Cadastrar Caminhão');

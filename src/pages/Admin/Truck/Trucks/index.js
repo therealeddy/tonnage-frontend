@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { Container } from './styles';
-import api from '~/services/api';
+
 import { Loading, Pagination } from '~/components';
+import api from '~/services/api';
 import documentTitle from '~/utils/documentTitle';
+
+import { Container } from './styles';
 
 export default function Trucks() {
   documentTitle('Caminhões');
@@ -20,8 +22,8 @@ export default function Trucks() {
     setLoading(true);
     const response = await api.get('/trucks', {
       params: {
-        paged
-      }
+        paged,
+      },
     });
 
     setTrucks(response.data.rows);
@@ -96,8 +98,9 @@ export default function Trucks() {
                           </Link>
                           <button
                             type="submit"
-                            className={`btn btn-danger ${loadingDel &&
-                              'disabled btn-loading'}`}
+                            className={`btn btn-danger ${
+                              loadingDel && 'disabled btn-loading'
+                            }`}
                             disabled={loadingDel}
                             onClick={() => deleteTruck(item.id)}
                           >
@@ -126,7 +129,7 @@ export default function Trucks() {
             <Pagination
               postsPerPage={5}
               totalPosts={totalPosts}
-              setPaged={number => setPage(number)}
+              setPaged={(number) => setPage(number)}
               currentPage={currentPage}
             />
           </div>
