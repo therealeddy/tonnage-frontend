@@ -8,7 +8,9 @@ export default function PageNotFound() {
   documentTitle('Tipos de cargas');
   return (
     <Container className="animated fadeIn">
-      <h1>Tipos de cargas</h1>
+      <div className="container">
+        <h1>Tipos de cargas</h1>
+      </div>
     </Container>
   );
 }
