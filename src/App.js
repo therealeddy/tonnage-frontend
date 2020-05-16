@@ -1,16 +1,24 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Routes from '~/routes';
-import GlobalStyles from '~/styles/global';
-import history from '~/services/history';
 
-export default function App() {
+import { ThemeProvider } from 'styled-components';
+
+import Routes from './routes';
+import history from './services/history';
+import { store, persistor } from './store';
+import GlobalStyle from './styles/global';
+
+function App() {
   return (
     <Router history={history}>
-      <GlobalStyles />
-      <Routes />
-      <ToastContainer autoClose={5000} />
+      <ThemeProvider theme={light}>
+        <Routes />
+        <GlobalStyle />
+        <ToastContainer autoClose={3000} />
+      </ThemeProvider>
     </Router>
   );
 }
+
+export default App;

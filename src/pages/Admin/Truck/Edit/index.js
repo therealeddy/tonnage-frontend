@@ -5,15 +5,10 @@ import { toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Input, Loading } from '~/components';
 import { Container } from './styles';
-import TitlePage from '~/utils/TitlePage';
+import documentTitle from '~/utils/documentTitle';
 import api from '~/services/api';
 import history from '~/services/history';
-
-const schema = Yup.object().shape({
-  board: Yup.string().required('Campo obrigatório'),
-  model: Yup.string().required('Campo obrigatório'),
-  brand: Yup.string().required('Campo obrigatório')
-});
+import truckSchema from '~/validators/truck';
 
 export default function Edit({ match }) {
   const { params } = match;
@@ -46,7 +41,7 @@ export default function Edit({ match }) {
     getData();
   }, [params]);
 
-  TitlePage(`Editar Caminhão ${params.id}`);
+  documentTitle(`Editar Caminhão ${params.id}`);
 
   async function handleSubmit(data) {
     setLoading(true);
@@ -73,7 +68,7 @@ export default function Edit({ match }) {
         {loadingPage ? (
           <Loading />
         ) : (
-          <Form schema={schema} onSubmit={handleSubmit}>
+          <Form schema={truckSchema} onSubmit={handleSubmit}>
             <div className="row mb-5">
               <div className="col-lg-4">
                 <Input

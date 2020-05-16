@@ -5,18 +5,13 @@ import { toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Input } from '~/components';
 import { Container } from './styles';
-import TitlePage from '~/utils/TitlePage';
+import documentTitle from '~/utils/documentTitle';
 import api from '~/services/api';
 import history from '~/services/history';
-
-const schema = Yup.object().shape({
-  board: Yup.string().required('Campo obrigatório'),
-  model: Yup.string().required('Campo obrigatório'),
-  brand: Yup.string().required('Campo obrigatório')
-});
+import truckSchema from '~/validators/truck';
 
 export default function Create() {
-  TitlePage('Cadastrar Caminhão');
+  documentTitle('Cadastrar Caminhão');
 
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +37,7 @@ export default function Create() {
           <h1>Adicionar Caminhão</h1>
         </div>
 
-        <Form schema={schema} onSubmit={handleSubmit}>
+        <Form schema={truckSchema} onSubmit={handleSubmit}>
           <div className="row mb-5">
             <div className="col-lg-4">
               <Input id="placa" type="text" name="board" label="Placa" />

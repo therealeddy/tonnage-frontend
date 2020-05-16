@@ -5,10 +5,10 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Container } from './styles';
 import api from '~/services/api';
 import { Loading, Pagination } from '~/components';
-import TitlePage from '~/utils/TitlePage';
+import documentTitle from '~/utils/documentTitle';
 
 export default function Trucks() {
-  TitlePage('Caminhões');
+  documentTitle('Caminhões');
 
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);

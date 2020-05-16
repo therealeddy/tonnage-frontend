@@ -1,10 +1,10 @@
 import React from 'react';
 import { obras } from '~/images';
 import { Container } from './styles';
-import TitlePage from '~/utils/TitlePage';
+import documentTitle from '~/utils/documentTitle';
 
-export default function Page404() {
-  TitlePage('Em obras');
+export default function PageNotFound() {
+  documentTitle('Em obras');
   return (
     <Container className="animated fadeIn">
       <div className="container d-flex flex-column align-items-center mt-5">
