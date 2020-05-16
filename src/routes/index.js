@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Header } from '~/components';
-import { Trucks, Create, Edit, Page404, Main } from '~/pages';
+import { PageNotFound, Main } from '~/pages';
+import { Trucks, TruckCreate, TruckEdit } from '~/pages/Admin';
 
 export default function Routes() {
   return (
@@ -11,14 +12,14 @@ export default function Routes() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/caminhoes" component={Trucks} />
-          <Route path="/create" component={Create} />
-          <Route path="/edit/:id" component={Edit} />
+          <Route path="/create" component={TruckCreate} />
+          <Route path="/edit/:id" component={TruckEdit} />
 
-          <Route path="/relatorio" component={Page404} />
-          <Route path="/pedidos" component={Page404} />
-          <Route path="/usuarios" component={Page404} />
-          <Route path="/cargas" component={Page404} />
-          <Route path="/configuracoes" component={Page404} />
+          <Route path="/relatorio" component={PageNotFound} />
+          <Route path="/pedidos" component={PageNotFound} />
+          <Route path="/usuarios" component={PageNotFound} />
+          <Route path="/cargas" component={PageNotFound} />
+          <Route path="/configuracoes" component={PageNotFound} />
         </Switch>
       </div>
     </>

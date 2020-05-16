@@ -3,10 +3,9 @@ import { Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { ThemeProvider } from 'styled-components';
-
+import { light } from '~/styles';
 import Routes from './routes';
 import history from './services/history';
-import { store, persistor } from './store';
 import GlobalStyle from './styles/global';
 
 function App() {
