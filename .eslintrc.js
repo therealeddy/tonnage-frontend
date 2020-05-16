@@ -59,7 +59,7 @@ module.exports = {
     ],
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'no-plusplus': 'error',
+    'no-plusplus': 'off',
     'react/prop-types': 'error',
   },
   settings: {

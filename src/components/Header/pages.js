@@ -1,28 +1,20 @@
 const pages = [
   {
+    title: 'Criar Solicitação',
+    url: '/create-request',
+  },
+  {
     title: 'Caminhões',
-    url: '/caminhoes'
-  },
-  {
-    title: 'Relatório',
-    url: '/relatorio'
-  },
-  {
-    title: 'Pedidos',
-    url: '/pedidos'
-  },
-  {
-    title: 'Usuários',
-    url: '/usuarios'
+    url: '/trucks',
   },
   {
     title: 'Tipos de carga',
-    url: '/cargas'
+    url: '/loads',
   },
   {
     title: 'Configurações',
-    url: '/configuracoes'
-  }
+    url: '/settings',
+  },
 ];
 
 export { pages };

@@ -3,6 +3,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
 import { Form } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import { Input, Loading } from '~/components';
 import api from '~/services/api';
@@ -52,7 +53,7 @@ export default function Edit({ match }) {
 
     if (response.data.success) {
       toast.success(response.data.success);
-      history.push('/caminhoes');
+      history.push('/trucks');
     }
 
     toast.error(response.data.error);
@@ -130,3 +131,11 @@ export default function Edit({ match }) {
     </Container>
   );
 }
+
+Edit.propTypes = {
+  match: PropTypes.object,
+};
+
+Edit.defaultProps = {
+  match: {},
+};
