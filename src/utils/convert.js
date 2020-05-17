@@ -8,23 +8,21 @@ export const convertTime = (seconds) => {
 
 export const convertPrice = (str) => {
   const array = str.split('R$')[1].split('.');
-  let strReplace = '';
+
+  const strReplace = {
+    value: '',
+  };
 
   array.forEach((item) => {
-    strReplace += item;
+    strReplace.value += item;
   });
 
-  return parseFloat(strReplace.replace(',', '.'));
+  return parseFloat(strReplace.value.replace(',', '.'));
 };
 
 export const convertFloatInPrice = (price) => {
-  const after = String(price).split('.');
-
-  if (after[1]) {
-    if (after[1].length === 1) {
-      return `R$${String(price).replace('.', ',')}0`;
-    }
-  }
-
-  return `R$${String(price).replace('.', ',')}`;
+  return price.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 };

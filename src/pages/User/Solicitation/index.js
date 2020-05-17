@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { SearchMap, Map } from '~/components';
 import api from '~/services/api';
-import { convertDistance, convertTime } from '~/utils/convert';
+import {
+  convertDistance,
+  convertTime,
+  convertFloatInPrice,
+} from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
 
@@ -14,6 +18,7 @@ export default function PageNotFound() {
   const token =
     'pk.eyJ1IjoidGhlcmVhbGVkZHkiLCJhIjoiY2thYTc2ajJmMTB6dTJydWxxZnMxbGZ3biJ9.TjssecTzcJtB-SVliMf2Ig';
 
+  const [price, setPrice] = useState(null);
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
   const [focus, setFocus] = useState({});
@@ -41,11 +46,19 @@ export default function PageNotFound() {
         getUrlApiRoute([origin.lng, origin.lat], [destiny.lng, destiny.lat])
       );
 
-      console.tron.log(response);
+      const { duration: dur, distance: dis } = response.data.routes[0];
+
+      const response_config = await api.get('/configurations');
+
+      const { price_per_kilometer } = response_config.data;
+
+      console.tron.log(price_per_kilometer, dis);
+
+      setPrice(convertFloatInPrice(price_per_kilometer * (dis / 1000)));
 
       setRoute(response.data.routes[0].geometry.coordinates);
-      setDuration(convertTime(response.data.routes[0].duration));
-      setDistance(convertDistance(response.data.routes[0].distance));
+      setDuration(convertTime(dur));
+      setDistance(convertDistance(dis));
     }
 
     if (!isEmpty(origin) && !isEmpty(destiny)) {
@@ -99,10 +112,10 @@ export default function PageNotFound() {
                   <p className="desc-map">{duration}</p>
                 </>
               )}
-              {distance && (
+              {price && (
                 <>
                   <p className="label-map">Preço pela distância</p>
-                  <p className="desc-map strong">R$ 145,00</p>
+                  <p className="desc-map strong">{price}</p>
                 </>
               )}
             </div>

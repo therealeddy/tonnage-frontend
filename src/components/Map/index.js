@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import ReactMapGL, {
   CanvasOverlay,
   FlyToInterpolator,
@@ -52,23 +53,23 @@ export default function Map({
 
         {!isEmpty(origin) && (
           <Marker
-            longitude={parseInt(origin.lng, 10)}
-            latitude={parseInt(origin.lat, 10)}
-            offsetLeft={15}
-            offsetTop={50}
+            longitude={parseFloat(origin.lng)}
+            latitude={parseFloat(origin.lat)}
+            offsetLeft={-10}
+            offsetTop={-25}
           >
-            {/* <FaMapMarkerAlt color="#007BFF" size={25} /> */}
+            <FaMapMarkerAlt color="#007BFF" size={25} />
           </Marker>
         )}
 
         {!isEmpty(destiny) && (
           <Marker
-            longitude={parseInt(destiny.lng, 10)}
-            latitude={parseInt(destiny.lat, 10)}
-            offsetLeft={15}
-            offsetTop={50}
+            longitude={parseFloat(destiny.lng)}
+            latitude={parseFloat(destiny.lat)}
+            offsetLeft={-10}
+            offsetTop={-25}
           >
-            {/* <FaMapMarkerAlt color="#DC3545" size={25} /> */}
+            <FaMapMarkerAlt color="#DC3545" size={25} />
           </Marker>
         )}
       </ReactMapGL>
