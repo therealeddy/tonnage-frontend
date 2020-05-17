@@ -13,21 +13,16 @@ export default function PageNotFound() {
 
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
-
-  const [viewport, setViewport] = useState({
-    longitude: -49.175218,
-    latitude: -25.563497,
-    zoom: 3.5,
-    bearing: 0,
-    pitch: 0,
-  });
+  const [focus, setFocus] = useState({});
 
   function suggestionOrigin(result, lat, lng, text) {
     setOrigin({ result, lat, lng, text });
+    setFocus({ result, lat, lng, text });
   }
 
   function suggestionDestiny(result, lat, lng, text) {
     setDestiny({ result, lat, lng, text });
+    setFocus({ result, lat, lng, text });
   }
 
   return (
@@ -55,10 +50,9 @@ export default function PageNotFound() {
         <div className="row">
           <div className="col-lg-10">
             <Map
-              {...viewport}
+              focus={focus}
               origin={origin}
               destiny={destiny}
-              onViewportChange={(e) => setViewport(e)}
               accessToken={token}
             />
           </div>

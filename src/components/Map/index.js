@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ReactMapGL, { CanvasOverlay } from 'react-map-gl';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import ReactMapGL, {
+  CanvasOverlay,
+  Marker,
+  FlyToInterpolator,
+} from 'react-map-gl';
 
 import PropTypes from 'prop-types';
 
@@ -8,38 +13,81 @@ import { isEmpty } from '~/utils/object';
 
 import { Container } from './styles';
 
-export default function Map({ destiny, origin, accessToken, ...rest }) {
+export default function Map({ focus, destiny, origin, accessToken, ...rest }) {
   const [route, setRoute] = useState([]);
 
-  function getUrlApiRoute(start, end) {
-    return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${accessToken}&geometries=geojson`;
+  const [viewport, setViewport] = useState({
+    longitude: -49.175218,
+    latitude: -25.563497,
+    zoom: 3.5,
+  });
+
+  function getUrlApiRoute(start, end, token) {
+    return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
   }
 
   useEffect(() => {
     async function getRoute() {
       const response = await api.get(
-        getUrlApiRoute([origin.lng, origin.lat], [destiny.lng, destiny.lat])
+        getUrlApiRoute(
+          [origin.lng, origin.lat],
+          [destiny.lng, destiny.lat],
+          accessToken
+        )
       );
 
       setRoute(response.data.routes[0].geometry.coordinates);
     }
 
+    if (!isEmpty(focus)) {
+      setViewport({
+        longitude: parseInt(focus.lng, 10),
+        latitude: parseInt(focus.lat, 10),
+        zoom: 7,
+        transitionInterpolator: new FlyToInterpolator(),
+        transitionDuration: 1000,
+      });
+    }
+
     if (!isEmpty(origin) && !isEmpty(destiny)) {
       getRoute();
     }
-  }, [origin, destiny]);
+  }, [origin, destiny, accessToken, focus]);
 
   return (
     <Container>
       <ReactMapGL
+        {...viewport}
         {...rest}
+        onViewportChange={(e) => setViewport(e)}
         width="100%"
         height="300px"
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxApiAccessToken={accessToken}
       >
         <PolylineOverlay points={route} color="#04215f" />
-        {/* {data.map(renderMarker)} */}
+
+        {!isEmpty(origin) && (
+          <Marker
+            longitude={parseInt(origin.lng, 10)}
+            latitude={parseInt(origin.lat, 10)}
+            offsetLeft={15}
+            offsetTop={50}
+          >
+            <FaMapMarkerAlt color="#007BFF" size={25} />
+          </Marker>
+        )}
+
+        {!isEmpty(destiny) && (
+          <Marker
+            longitude={parseInt(destiny.lng, 10)}
+            latitude={parseInt(destiny.lat, 10)}
+            offsetLeft={15}
+            offsetTop={50}
+          >
+            <FaMapMarkerAlt color="#DC3545" size={25} />
+          </Marker>
+        )}
       </ReactMapGL>
     </Container>
   );
@@ -86,12 +134,14 @@ PolylineOverlay.defaultProps = {
 
 Map.propTypes = {
   accessToken: PropTypes.string,
+  focus: PropTypes.object,
   destiny: PropTypes.object,
   origin: PropTypes.object,
 };
 
 Map.defaultProps = {
   accessToken: '',
+  focus: {},
   destiny: {},
   origin: {},
 };
