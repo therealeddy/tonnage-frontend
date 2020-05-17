@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { SearchMap, Map } from '~/components';
+import api from '~/services/api';
+import { convertDistance } from '~/utils/convertDistance';
+import { convertTime } from '~/utils/convertTime';
 import documentTitle from '~/utils/documentTitle';
+import { isEmpty } from '~/utils/object';
 
 import { Container } from './styles';
 
@@ -14,16 +18,41 @@ export default function PageNotFound() {
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
   const [focus, setFocus] = useState({});
+  const [route, setRoute] = useState([]);
+  const [duration, setDuration] = useState('');
+  const [distance, setDistance] = useState('');
 
   function suggestionOrigin(result, lat, lng, text) {
     setOrigin({ result, lat, lng, text });
-    setFocus({ result, lat, lng, text });
+    setFocus({ lat, lng });
   }
 
   function suggestionDestiny(result, lat, lng, text) {
     setDestiny({ result, lat, lng, text });
-    setFocus({ result, lat, lng, text });
+    setFocus({ lat, lng });
   }
+
+  function getUrlApiRoute(start, end) {
+    return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
+  }
+
+  useEffect(() => {
+    async function getRoute() {
+      const response = await api.get(
+        getUrlApiRoute([origin.lng, origin.lat], [destiny.lng, destiny.lat])
+      );
+
+      console.tron.log(response);
+
+      setRoute(response.data.routes[0].geometry.coordinates);
+      setDuration(convertTime(response.data.routes[0].duration));
+      setDistance(convertDistance(response.data.routes[0].distance));
+    }
+
+    if (!isEmpty(origin) && !isEmpty(destiny)) {
+      getRoute();
+    }
+  }, [origin, destiny]);
 
   return (
     <Container className="animated fadeIn">
@@ -53,8 +82,31 @@ export default function PageNotFound() {
               focus={focus}
               origin={origin}
               destiny={destiny}
+              route={route}
               accessToken={token}
             />
+          </div>
+          <div className="col-lg-2 d-flex align-items-center">
+            <div>
+              {distance && (
+                <>
+                  <p className="label-map">Distância</p>
+                  <p className="desc-map">{distance}</p>
+                </>
+              )}
+              {duration && (
+                <>
+                  <p className="label-map">T. estimado</p>
+                  <p className="desc-map">{duration}</p>
+                </>
+              )}
+              {distance && (
+                <>
+                  <p className="label-map">Preço pela distância</p>
+                  <p className="desc-map strong">R$ 145,00</p>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
