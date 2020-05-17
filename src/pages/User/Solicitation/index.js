@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { SearchMap, Map } from '~/components';
 import api from '~/services/api';
-import { convertDistance } from '~/utils/convertDistance';
-import { convertTime } from '~/utils/convertTime';
+import { convertDistance, convertTime } from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
 

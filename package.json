@@ -12,12 +12,14 @@
     "react-dom": "^16.9.0",
     "react-icons": "^3.9.0",
     "react-map-gl": "^5.2.5",
-    "react-mapbox-autocomplete": "^2.5.0",
+    "react-mapbox-autocomplete": "^0.2.3",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.2",
+    "react-text-mask": "^5.4.3",
     "react-toastify": "^5.5.0",
     "reactotron-react-js": "^3.3.7",
     "styled-components": "^4.4.0",
+    "text-mask-addons": "^3.8.0",
     "yup": "^0.28.3"
   },
   "scripts": {
