@@ -6,9 +6,6 @@ import PropTypes from 'prop-types';
 import { Container } from './styles';
 
 export default function SearchMap({ id, label, error, className, ...rest }) {
-  const token =
-    'pk.eyJ1IjoidGhlcmVhbGVkZHkiLCJhIjoiY2thYTc2ajJmMTB6dTJydWxxZnMxbGZ3biJ9.TjssecTzcJtB-SVliMf2Ig';
-
   return (
     <Container className={className}>
       <label htmlFor={id}>{label}</label>
@@ -16,7 +13,6 @@ export default function SearchMap({ id, label, error, className, ...rest }) {
         id={id}
         inputClass="form-control"
         country="br"
-        publicKey={token}
         resetSearch={false}
         {...rest}
       />
