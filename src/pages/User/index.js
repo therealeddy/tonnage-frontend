@@ -1,1 +1,1 @@
-export { default as Solicitation } from './Solicitation';
+export { default as SolicitationUserCreate } from './Solicitation/Create';

@@ -3,8 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Header } from '~/components';
 import { PageNotFound, Main } from '~/pages';
-import { Trucks, TruckCreate, TruckEdit, Loads } from '~/pages/Admin';
-import { Solicitation } from '~/pages/User';
+import {
+  Trucks,
+  TruckCreate,
+  TruckEdit,
+  Loads,
+  SolicitationAdminList,
+  SolicitationAdminEdit,
+} from '~/pages/Admin';
+import { SolicitationUserCreate } from '~/pages/User';
 
 export default function Routes() {
   return (
@@ -17,9 +24,12 @@ export default function Routes() {
           <Route path="/trucks" exact component={Trucks} />
           <Route path="/trucks/create" component={TruckCreate} />
           <Route path="/trucks/edit/:id" component={TruckEdit} />
-          <Route path="/loads" component={Loads} />
 
-          <Route path="/create-request" component={Solicitation} />
+          <Route path="/requests" exact component={SolicitationAdminList} />
+          <Route path="/requests/create" component={SolicitationUserCreate} />
+          <Route path="/requests/edit/:id" component={SolicitationAdminEdit} />
+
+          <Route path="/loads" component={Loads} />
           <Route path="/settings" component={PageNotFound} />
         </Switch>
       </div>

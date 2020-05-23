@@ -14,7 +14,7 @@ export default function Header() {
         <ul>
           {pages.map((item, index) => (
             <li key={String(index)}>
-              <NavLink to={item.url} activeClassName="active">
+              <NavLink to={item.url} exact activeClassName="active">
                 {item.title}
               </NavLink>
             </li>

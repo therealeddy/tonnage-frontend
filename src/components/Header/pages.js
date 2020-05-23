@@ -1,7 +1,11 @@
 const pages = [
   {
     title: 'Criar Solicitação',
-    url: '/create-request',
+    url: '/requests/create',
+  },
+  {
+    title: 'Solicitações',
+    url: '/requests',
   },
   {
     title: 'Caminhões',
@@ -10,6 +14,10 @@ const pages = [
   {
     title: 'Tipos de carga',
     url: '/loads',
+  },
+  {
+    title: 'Historico',
+    url: '/historic',
   },
   {
     title: 'Configurações',
