@@ -61,6 +61,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-plusplus': 'off',
     'react/prop-types': 'error',
+    'react/no-unescaped-entities': 'off',
   },
   settings: {
     'import/resolver': 'babel-plugin-root-import',

@@ -10,6 +10,7 @@ import {
   Loads,
   SolicitationAdminList,
   SolicitationAdminEdit,
+  History,
 } from '~/pages/Admin';
 import { SolicitationUserCreate } from '~/pages/User';
 
@@ -28,6 +29,8 @@ export default function Routes() {
           <Route path="/requests" exact component={SolicitationAdminList} />
           <Route path="/requests/create" component={SolicitationUserCreate} />
           <Route path="/requests/edit/:id" component={SolicitationAdminEdit} />
+
+          <Route path="/historic" component={History} />
 
           <Route path="/loads" component={Loads} />
           <Route path="/settings" component={PageNotFound} />
