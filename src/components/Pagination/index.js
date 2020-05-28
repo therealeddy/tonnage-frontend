@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Container } from './styles';
 
 export default function Pagination({
@@ -79,3 +81,17 @@ export default function Pagination({
     </Container>
   );
 }
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number,
+  totalPosts: PropTypes.number,
+  postsPerPage: PropTypes.number,
+  setPaged: PropTypes.func,
+};
+
+Pagination.defaultProps = {
+  currentPage: 1,
+  totalPosts: 0,
+  postsPerPage: 0,
+  setPaged: () => {},
+};
