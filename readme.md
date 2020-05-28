@@ -1,6 +1,6 @@
-<h2 align="center">
-  Tonnage Front-End
-</h2>
+<h1 align="center">
+  🚀 Tonnage Front-End 🚀
+</h1>
 
 <br>
 
@@ -15,7 +15,7 @@
 
 ## Overview
 
-Tonnage Front-End for TCC.
+Tonnage Front-End -  Completion of course work.
 
 ## Author
 
@@ -23,7 +23,7 @@ Tonnage Front-End for TCC.
 
 ## License
 
-MIT © **[Node Eddy](LICENSE)**
+MIT © **[License](LICENSE)**
 
 ## Show your support
 
