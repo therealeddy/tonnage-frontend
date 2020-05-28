@@ -61,7 +61,7 @@ export default function Trucks() {
       <div className="container">
         <div className="d-flex align-items-center justify-content-between mb-5 pb-5">
           <h1>Caminhões</h1>
-          <Link to="/create" className="btn btn-success">
+          <Link to="/trucks/create" className="btn btn-success">
             Adicionar
           </Link>
         </div>
@@ -91,7 +91,7 @@ export default function Trucks() {
                         <td>{item.brand}</td>
                         <td className="d-flex justify-content-end">
                           <Link
-                            to={`/edit/${item.id}`}
+                            to={`/trucks/edit/${item.id}`}
                             className="btn btn-primary mr-4"
                           >
                             Editar

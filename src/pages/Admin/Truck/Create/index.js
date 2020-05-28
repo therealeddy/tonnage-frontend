@@ -24,7 +24,7 @@ export default function Create() {
 
     if (response.data.success) {
       toast.success(response.data.success);
-      history.push('/caminhoes');
+      history.push('/trucks');
     }
 
     toast.error(response.data.error);
