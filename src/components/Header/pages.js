@@ -35,7 +35,7 @@ const pagesManager = [
   },
   {
     title: 'Usúarios',
-    url: '/',
+    url: '/users',
   },
   {
     title: 'Caminhões',
@@ -58,7 +58,7 @@ const pagesAdmin = [
   },
   {
     title: 'Usúarios',
-    url: '/',
+    url: '/users',
   },
   {
     title: 'Tipos de carga',

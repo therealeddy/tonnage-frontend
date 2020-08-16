@@ -1,20 +1,15 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import { Dashboard, Login, Register, PageDefault } from '~/pages';
+import { Dashboard, Login, Register } from '~/pages';
+import {
+  Users,
+  UsersClients,
+  UsersClientsCreate,
+  UsersClientsEdit,
+} from '~/pages/Admin';
 
 import Route from './Routes';
-
-// import {
-//   Trucks,
-//   TruckCreate,
-//   TruckEdit,
-//   Loads,
-//   SolicitationAdminList,
-//   SolicitationAdminEdit,
-//   History,
-// } from '~/pages/Admin';
-// import { SolicitationUserCreate } from '~/pages/User';
 
 export default function Routes() {
   return (
@@ -31,49 +26,32 @@ export default function Routes() {
         />
 
         <Route
-          path="/page-client"
-          component={PageDefault}
+          path="/users"
+          exact
+          component={Users}
           isPrivate
-          roles={['client']}
+          roles={['manager', 'admin']}
         />
+
         <Route
-          path="/page-trucker"
-          component={PageDefault}
-          isPrivate
-          roles={['trucker']}
-        />
-        <Route
-          path="/page-manager"
-          component={PageDefault}
-          isPrivate
-          roles={['manager']}
-        />
-        <Route
-          path="/page-admin"
-          component={PageDefault}
+          path="/users/client"
+          exact
+          component={UsersClients}
           isPrivate
           roles={['admin']}
         />
-
-        {/* <Route path="/trucks" component={Trucks} isPrivate />
-        <Route path="/trucks/create" component={TruckCreate} isPrivate />
-        <Route path="/trucks/edit/:id" component={TruckEdit} isPrivate />
-
-        <Route path="/requests" component={SolicitationAdminList} isPrivate />
         <Route
-          path="/requests/create"
-          component={SolicitationUserCreate}
+          path="/users/client/create"
+          component={UsersClientsCreate}
           isPrivate
+          roles={['admin']}
         />
         <Route
-          path="/requests/edit/:id"
-          component={SolicitationAdminEdit}
+          path="/users/client/edit/:id"
+          component={UsersClientsEdit}
           isPrivate
+          roles={['admin']}
         />
-
-        <Route path="/historic" component={History} isPrivate />
-
-        <Route path="/loads" component={Loads} isPrivate /> */}
       </Switch>
     </Switch>
   );
