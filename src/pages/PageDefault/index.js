@@ -12,7 +12,7 @@ export default function Dashboard() {
   return (
     <Container className="animated jello">
       <div className="container d-flex justify-content-center mt-5">
-        <h1>Bem Vindo {configRolesArray[root.user.role]}!</h1>
+        <h1>Rota do {configRolesArray[root.user.role]}!</h1>
       </div>
     </Container>
   );

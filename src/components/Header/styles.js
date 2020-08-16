@@ -59,8 +59,17 @@ export const Container = styled.div`
         }
       }
     }
-    a.exit {
+    button.exit {
       padding-left: 20px;
+      color: #0275d8;
+      background-color: transparent;
+      border: 0px solid;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+      width: fit-content;
+      outline: none;
+      text-decoration: underline;
     }
   }
 `;

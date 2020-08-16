@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import { Dashboard, Login, Register } from '~/pages';
+import { Dashboard, Login, Register, PageDefault } from '~/pages';
 
 import Route from './Routes';
 
@@ -23,7 +23,37 @@ export default function Routes() {
         <Route path="/" exact component={Login} />
         <Route path="/register" component={Register} />
 
-        <Route path="/dashboard" component={Dashboard} isPrivate />
+        <Route
+          path="/dashboard"
+          component={Dashboard}
+          isPrivate
+          roles={['client', 'trucker', 'manager', 'admin']}
+        />
+
+        <Route
+          path="/page-client"
+          component={PageDefault}
+          isPrivate
+          roles={['client']}
+        />
+        <Route
+          path="/page-trucker"
+          component={PageDefault}
+          isPrivate
+          roles={['trucker']}
+        />
+        <Route
+          path="/page-manager"
+          component={PageDefault}
+          isPrivate
+          roles={['manager']}
+        />
+        <Route
+          path="/page-admin"
+          component={PageDefault}
+          isPrivate
+          roles={['admin']}
+        />
 
         {/* <Route path="/trucks" component={Trucks} isPrivate />
         <Route path="/trucks/create" component={TruckCreate} isPrivate />

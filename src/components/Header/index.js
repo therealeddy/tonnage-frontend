@@ -1,10 +1,30 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import { pages } from './pages';
+import authConfig from '~/config/authConfig';
+import { logout } from '~/services/auth';
+
+import { pagesClient, pagesTrucker, pagesManager, pagesAdmin } from './pages';
 import { Container } from './styles';
 
 export default function Header() {
+  const { keyRootStorage, configRolesArray } = authConfig;
+
+  const root = JSON.parse(localStorage.getItem(keyRootStorage));
+
+  const pagesConfig = {
+    cliente: pagesClient,
+    caminhoneiro: pagesTrucker,
+    gerente: pagesManager,
+    administrador: pagesAdmin,
+  };
+
+  const pages = pagesConfig[configRolesArray[root.user.role]];
+
+  function handleExit() {
+    logout();
+  }
+
   return (
     <Container>
       <header className="top z-depth-1">
@@ -20,9 +40,9 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <Link to="/" className="exit">
+        <button type="button" className="exit" onClick={handleExit}>
           Sair
-        </Link>
+        </button>
       </header>
     </Container>
   );

@@ -1,11 +1,14 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { InputTheme } from '~/components';
 import { logo } from '~/images';
+import api from '~/services/api';
+import { auth } from '~/services/auth';
 
 import { Container } from './styles';
 
@@ -17,13 +20,22 @@ export default function Login() {
       formRef.current.setErrors({});
 
       const schema = Yup.object().shape({
-        name: Yup.string().required('Campo obrigatório'),
+        nickname: Yup.string().required('Campo obrigatório'),
         password: Yup.string().required('Campo obrigatório'),
       });
 
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      const response = await api.post('/sessions', data);
+
+      if (response.data.error) {
+        toast.error(response.data.error);
+        return;
+      }
+
+      auth(response.data);
     } catch (err) {
       const validationErrors = {};
 
@@ -45,8 +57,8 @@ export default function Login() {
               <img src={logo} alt="logo" />
               <Form onSubmit={handleSubmit} ref={formRef}>
                 <InputTheme
-                  id="name"
-                  name="name"
+                  id="nickname"
+                  name="nickname"
                   label="Nome de usúario"
                   type="text"
                   className="mb-4"

@@ -1,28 +1,77 @@
-const pages = [
+const pagesClient = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard',
+  },
   {
     title: 'Criar Solicitação',
-    url: '/requests/create',
+    url: '/',
   },
   {
-    title: 'Solicitações',
-    url: '/requests',
-  },
-  {
-    title: 'Caminhões',
-    url: '/trucks',
-  },
-  {
-    title: 'Tipos de carga',
-    url: '/loads',
-  },
-  {
-    title: 'Historico',
-    url: '/historic',
+    title: 'Pedidos',
+    url: '/',
   },
   {
     title: 'Configurações',
-    url: '/settings',
+    url: '/',
   },
 ];
 
-export { pages };
+const pagesTrucker = [
+  {
+    title: 'Pedidos',
+    url: '/',
+  },
+];
+
+const pagesManager = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard',
+  },
+  {
+    title: 'Pedidos',
+    url: '/',
+  },
+  {
+    title: 'Usúarios',
+    url: '/',
+  },
+  {
+    title: 'Caminhões',
+    url: '/',
+  },
+  {
+    title: 'Configurações',
+    url: '/',
+  },
+];
+
+const pagesAdmin = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard',
+  },
+  {
+    title: 'Pedidos',
+    url: '/',
+  },
+  {
+    title: 'Usúarios',
+    url: '/',
+  },
+  {
+    title: 'Tipos de carga',
+    url: '/',
+  },
+  {
+    title: 'Caminhões',
+    url: '/',
+  },
+  {
+    title: 'Configurações',
+    url: '/',
+  },
+];
+
+export { pagesClient, pagesTrucker, pagesManager, pagesAdmin };
