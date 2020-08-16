@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Logo } from '~/images';
+
+import { logo } from '~/images';
 
 export const Container = styled.div`
   display: block;
@@ -17,7 +18,7 @@ export const Container = styled.div`
     div.logo {
       width: 180px;
       height: 30px;
-      background-image: url(${Logo});
+      background-image: url(${logo});
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;

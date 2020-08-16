@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export default function Main() {
+export default function Dashboard() {
   return (
     <Container className="animated jello">
       <div className="container d-flex justify-content-center mt-5">
