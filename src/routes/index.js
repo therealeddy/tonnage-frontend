@@ -1,41 +1,80 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
-import { Header } from '~/components';
-import { PageNotFound, Main } from '~/pages';
-import {
-  Trucks,
-  TruckCreate,
-  TruckEdit,
-  Loads,
-  SolicitationAdminList,
-  SolicitationAdminEdit,
-  History,
-} from '~/pages/Admin';
-import { SolicitationUserCreate } from '~/pages/User';
+import { Dashboard, Login, Register, PageDefault } from '~/pages';
+
+import Route from './Routes';
+
+// import {
+//   Trucks,
+//   TruckCreate,
+//   TruckEdit,
+//   Loads,
+//   SolicitationAdminList,
+//   SolicitationAdminEdit,
+//   History,
+// } from '~/pages/Admin';
+// import { SolicitationUserCreate } from '~/pages/User';
 
 export default function Routes() {
   return (
-    <>
-      <Header />
-      <div className="content">
-        <Switch>
-          <Route path="/" exact component={Main} />
+    <Switch>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/register" component={Register} />
 
-          <Route path="/trucks" exact component={Trucks} />
-          <Route path="/trucks/create" component={TruckCreate} />
-          <Route path="/trucks/edit/:id" component={TruckEdit} />
+        <Route
+          path="/dashboard"
+          component={Dashboard}
+          isPrivate
+          roles={['client', 'trucker', 'manager', 'admin']}
+        />
 
-          <Route path="/requests" exact component={SolicitationAdminList} />
-          <Route path="/requests/create" component={SolicitationUserCreate} />
-          <Route path="/requests/edit/:id" component={SolicitationAdminEdit} />
+        <Route
+          path="/page-client"
+          component={PageDefault}
+          isPrivate
+          roles={['client']}
+        />
+        <Route
+          path="/page-trucker"
+          component={PageDefault}
+          isPrivate
+          roles={['trucker']}
+        />
+        <Route
+          path="/page-manager"
+          component={PageDefault}
+          isPrivate
+          roles={['manager']}
+        />
+        <Route
+          path="/page-admin"
+          component={PageDefault}
+          isPrivate
+          roles={['admin']}
+        />
 
-          <Route path="/historic" component={History} />
+        {/* <Route path="/trucks" component={Trucks} isPrivate />
+        <Route path="/trucks/create" component={TruckCreate} isPrivate />
+        <Route path="/trucks/edit/:id" component={TruckEdit} isPrivate />
 
-          <Route path="/loads" component={Loads} />
-          <Route path="/settings" component={PageNotFound} />
-        </Switch>
-      </div>
-    </>
+        <Route path="/requests" component={SolicitationAdminList} isPrivate />
+        <Route
+          path="/requests/create"
+          component={SolicitationUserCreate}
+          isPrivate
+        />
+        <Route
+          path="/requests/edit/:id"
+          component={SolicitationAdminEdit}
+          isPrivate
+        />
+
+        <Route path="/historic" component={History} isPrivate />
+
+        <Route path="/loads" component={Loads} isPrivate /> */}
+      </Switch>
+    </Switch>
   );
 }

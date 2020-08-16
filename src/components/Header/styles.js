@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Logo } from '~/images';
+
+import { logo } from '~/images';
 
 export const Container = styled.div`
   display: block;
@@ -17,7 +18,7 @@ export const Container = styled.div`
     div.logo {
       width: 180px;
       height: 30px;
-      background-image: url(${Logo});
+      background-image: url(${logo});
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
@@ -58,8 +59,17 @@ export const Container = styled.div`
         }
       }
     }
-    a.exit {
+    button.exit {
       padding-left: 20px;
+      color: #0275d8;
+      background-color: transparent;
+      border: 0px solid;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+      width: fit-content;
+      outline: none;
+      text-decoration: underline;
     }
   }
 `;

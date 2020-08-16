@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { ThemeProvider } from 'styled-components';
 
+import { setHeaders } from '~/services/auth';
 import { light } from '~/styles';
 
 import Routes from './routes';
@@ -11,6 +12,8 @@ import history from './services/history';
 import GlobalStyle from './styles/global';
 
 function App() {
+  setHeaders();
+
   return (
     <Router history={history}>
       <ThemeProvider theme={light}>
