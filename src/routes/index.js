@@ -7,6 +7,12 @@ import {
   UsersClients,
   UsersClientsCreate,
   UsersClientsEdit,
+  UsersManagers,
+  UsersManagersCreate,
+  UsersManagersEdit,
+  UsersTruckers,
+  UsersTruckersCreate,
+  UsersTruckersEdit,
 } from '~/pages/Admin';
 
 import Route from './Routes';
@@ -30,7 +36,7 @@ export default function Routes() {
           exact
           component={Users}
           isPrivate
-          roles={['manager', 'admin']}
+          roles={['admin', 'manager']}
         />
 
         <Route
@@ -51,6 +57,46 @@ export default function Routes() {
           component={UsersClientsEdit}
           isPrivate
           roles={['admin']}
+        />
+
+        <Route
+          path="/users/manager"
+          exact
+          component={UsersManagers}
+          isPrivate
+          roles={['admin']}
+        />
+        <Route
+          path="/users/manager/create"
+          component={UsersManagersCreate}
+          isPrivate
+          roles={['admin']}
+        />
+        <Route
+          path="/users/manager/edit/:id"
+          component={UsersManagersEdit}
+          isPrivate
+          roles={['admin']}
+        />
+
+        <Route
+          path="/users/trucker"
+          exact
+          component={UsersTruckers}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+        <Route
+          path="/users/trucker/create"
+          component={UsersTruckersCreate}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+        <Route
+          path="/users/trucker/edit/:id"
+          component={UsersTruckersEdit}
+          isPrivate
+          roles={['admin', 'manager']}
         />
       </Switch>
     </Switch>
