@@ -9,9 +9,10 @@ export { default as UsersTruckers } from './Users/Truckers';
 export { default as UsersTruckersCreate } from './Users/Truckers/Create';
 export { default as UsersTruckersEdit } from './Users/Truckers/Edit';
 
-export { default as Trucks } from './Truck/Trucks';
-export { default as TruckEdit } from './Truck/Edit';
-export { default as TruckCreate } from './Truck/Create';
+export { default as Trucks } from './Trucks';
+export { default as TrucksEdit } from './Trucks/Edit';
+export { default as TrucksCreate } from './Trucks/Create';
+
 export { default as Loads } from './Loads';
 export { default as SolicitationAdminList } from './Solicitation/List';
 export { default as SolicitationAdminEdit } from './Solicitation/Edit';

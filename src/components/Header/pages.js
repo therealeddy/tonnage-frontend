@@ -39,7 +39,7 @@ const pagesManager = [
   },
   {
     title: 'Caminhões',
-    url: '/',
+    url: '/trucks',
   },
   {
     title: 'Configurações',
@@ -66,7 +66,7 @@ const pagesAdmin = [
   },
   {
     title: 'Caminhões',
-    url: '/',
+    url: '/trucks',
   },
   {
     title: 'Configurações',

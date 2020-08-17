@@ -13,6 +13,9 @@ import {
   UsersTruckers,
   UsersTruckersCreate,
   UsersTruckersEdit,
+  Trucks,
+  TrucksEdit,
+  TrucksCreate,
 } from '~/pages/Admin';
 
 import Route from './Routes';
@@ -95,6 +98,26 @@ export default function Routes() {
         <Route
           path="/users/trucker/edit/:id"
           component={UsersTruckersEdit}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+
+        <Route
+          path="/trucks"
+          exact
+          component={Trucks}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+        <Route
+          path="/trucks/create"
+          component={TrucksCreate}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+        <Route
+          path="/trucks/edit/:id"
+          component={TrucksEdit}
           isPrivate
           roles={['admin', 'manager']}
         />
