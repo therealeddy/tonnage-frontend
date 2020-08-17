@@ -40,7 +40,10 @@ export default function Register() {
         abortEarly: false,
       });
 
-      const response = await api.post('/users', data);
+      const response = await api.post('/users', {
+        ...data,
+        role: 1,
+      });
 
       if (response.data.success) {
         toast.success(response.data.success);
@@ -72,7 +75,7 @@ export default function Register() {
                 <InputTheme
                   id="nickname"
                   name="nickname"
-                  label="Nome de usúario"
+                  label="Nome de usuário"
                   type="text"
                   className="mb-4"
                 />

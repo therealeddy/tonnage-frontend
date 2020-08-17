@@ -41,7 +41,7 @@ export default function InputTheme({
             {...rest}
           />
         ) : (
-          <InputMask mask={mask} maskChar={null}>
+          <InputMask mask={mask} maskChar={null} {...rest}>
             {(inputProps) => (
               <input
                 id={id}
@@ -50,7 +50,6 @@ export default function InputTheme({
                 ref={inputRef}
                 defaultValue={defaultValue}
                 {...inputProps}
-                {...rest}
               />
             )}
           </InputMask>

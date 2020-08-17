@@ -35,11 +35,11 @@ const pagesManager = [
   },
   {
     title: 'Usúarios',
-    url: '/',
+    url: '/users',
   },
   {
     title: 'Caminhões',
-    url: '/',
+    url: '/trucks',
   },
   {
     title: 'Configurações',
@@ -58,7 +58,7 @@ const pagesAdmin = [
   },
   {
     title: 'Usúarios',
-    url: '/',
+    url: '/users',
   },
   {
     title: 'Tipos de carga',
@@ -66,7 +66,7 @@ const pagesAdmin = [
   },
   {
     title: 'Caminhões',
-    url: '/',
+    url: '/trucks',
   },
   {
     title: 'Configurações',
