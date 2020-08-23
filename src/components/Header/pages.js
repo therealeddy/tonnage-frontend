@@ -19,8 +19,8 @@ const pagesClient = [
 
 const pagesTrucker = [
   {
-    title: 'Pedidos',
-    url: '/',
+    title: 'Dashboard',
+    url: '/dashboard',
   },
 ];
 

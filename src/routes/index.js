@@ -24,6 +24,7 @@ import {
   SolicitationUser,
   SolicitationUserView,
 } from '~/pages/Client';
+import { SolicitationViewTrucker } from '~/pages/Trucker';
 
 import Route from './Routes';
 
@@ -161,6 +162,14 @@ export default function Routes() {
           component={SolicitationViewAdmin}
           isPrivate
           roles={['admin', 'manager']}
+        />
+
+        <Route
+          path="/request-view/:id"
+          exact
+          component={SolicitationViewTrucker}
+          isPrivate
+          roles={['trucker']}
         />
       </Switch>
     </Switch>
