@@ -16,6 +16,8 @@ import {
   Trucks,
   TrucksEdit,
   TrucksCreate,
+  SolicitationAdmin,
+  SolicitationViewAdmin,
 } from '~/pages/Admin';
 import {
   SolicitationUserCreate,
@@ -145,6 +147,20 @@ export default function Routes() {
           component={SolicitationUserView}
           isPrivate
           roles={['client']}
+        />
+
+        <Route
+          path="/manage-orders"
+          exact
+          component={SolicitationAdmin}
+          isPrivate
+          roles={['admin', 'manager']}
+        />
+        <Route
+          path="/manage-orders/view/:id"
+          component={SolicitationViewAdmin}
+          isPrivate
+          roles={['admin', 'manager']}
         />
       </Switch>
     </Switch>

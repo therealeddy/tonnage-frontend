@@ -2,6 +2,7 @@ import { createGlobalStyle, keyframes } from 'styled-components';
 
 import './bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const rotate = keyframes`
   from {
@@ -86,5 +87,9 @@ export default createGlobalStyle`
     svg {
       animation: ${rotate} 0.4s linear infinite;
     }
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
   }
 `;

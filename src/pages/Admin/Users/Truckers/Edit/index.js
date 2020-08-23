@@ -42,8 +42,6 @@ export default function Edit({ match }) {
         history.push('/users/trucker');
       }
 
-      console.tron.log(response.data);
-
       setUser({
         ...response.data,
         password: '',

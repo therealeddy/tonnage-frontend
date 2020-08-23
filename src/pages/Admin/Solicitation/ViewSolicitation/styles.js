@@ -32,13 +32,13 @@ export const Container = styled.div`
       font-size: 16px;
       line-height: 23px;
       color: #0099ff;
+      margin-bottom: 5px;
     }
     .description {
       font-family: Roboto;
       font-style: normal;
       font-weight: 500;
-      font-size: 25px;
-      line-height: 26px;
+      font-size: 20px;
       color: #373a3c;
     }
   }

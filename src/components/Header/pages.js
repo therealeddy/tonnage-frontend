@@ -31,7 +31,7 @@ const pagesManager = [
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/manage-orders',
   },
   {
     title: 'Usúarios',
@@ -54,7 +54,7 @@ const pagesAdmin = [
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/manage-orders',
   },
   {
     title: 'Usúarios',
