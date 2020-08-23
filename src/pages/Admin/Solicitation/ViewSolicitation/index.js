@@ -1,32 +1,49 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
-import { Form } from '@rocketseat/unform';
+import { Form } from '@unform/web';
+import { parseISO, format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import PropTypes from 'prop-types';
 
 import { Map } from '~/components';
+import token from '~/config/tokenMapbox';
 import api from '~/services/api';
 import history from '~/services/history';
-import { convertDistance, convertTime } from '~/utils/convert';
+import {
+  convertDistance,
+  convertTime,
+  convertFloatInPrice,
+} from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
-import token from '~/utils/tokenMapbox';
 
 import { Container } from './styles';
+
+registerLocale('pt-BR', ptBR);
 
 export default function SolicitationAdminEdit({ match }) {
   const { params } = match;
 
-  documentTitle('Visualizar Solicitação');
+  documentTitle(`Solicitação #${params.id}`);
 
+  const [price, setPrice] = useState(null);
   const [status, setStatus] = useState('');
+  const [client, setClient] = useState('');
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
   const [route, setRoute] = useState([]);
   const [duration, setDuration] = useState('');
   const [distance, setDistance] = useState('');
+  const [description, setDescription] = useState('');
+  const [collectionDate, setCollectionDate] = useState(new Date());
+  const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [truckers, setTruckers] = useState([]);
+  const [truckerSelected, setTruckerSelected] = useState('');
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -40,6 +57,12 @@ export default function SolicitationAdminEdit({ match }) {
 
       const { duration: dur, distance: dis } = response.data.routes[0];
 
+      const response_config = await api.get('/configurations');
+
+      const { price_per_kilometer } = response_config.data;
+
+      setPrice(convertFloatInPrice(price_per_kilometer * (dis / 1000)));
+
       setRoute(response.data.routes[0].geometry.coordinates);
       setDuration(convertTime(dur));
       setDistance(convertDistance(dis));
@@ -52,9 +75,22 @@ export default function SolicitationAdminEdit({ match }) {
 
   useEffect(() => {
     async function getData() {
-      const response = await api.get(`requests/${params.id}`);
+      const response = await api.get(`requests-admin/${params.id}`);
 
       const { route: resRoute } = response.data;
+
+      const response_truckers = await api.get('/users', {
+        params: {
+          role: 2,
+          findAll: true,
+        },
+      });
+
+      setTruckers(
+        response_truckers.data.rows.map((row) => {
+          return row.user;
+        })
+      );
 
       setDestiny({
         result: resRoute.destination_address,
@@ -68,7 +104,21 @@ export default function SolicitationAdminEdit({ match }) {
         lng: resRoute.origin_longitude,
       });
 
+      if (response.data.user_trucker) {
+        setTruckerSelected(response.data.user_trucker.id);
+      }
+
+      if (response.data.user) {
+        setClient(response.data.user.name);
+      }
+
+      if (response.data.collection_date) {
+        setCollectionDate(parseISO(response.data.collection_date));
+      }
+
       setStatus(response.data.status);
+      setDescription(response.data.description);
+      setCreatedAt(response.data.created_at);
     }
 
     getData();
@@ -77,13 +127,15 @@ export default function SolicitationAdminEdit({ match }) {
   async function handleSubmit() {
     setLoading(true);
 
-    const response = await api.put(`/requests/${params.id}`, {
+    const response = await api.put(`/requests-admin/${params.id}`, {
       status,
+      id_user_trucker: truckerSelected,
+      collection_date: collectionDate,
     });
 
     if (response.data.success) {
       toast.success(response.data.success);
-      history.push('/requests');
+      history.push('/manage-orders');
       return;
     }
 
@@ -98,7 +150,19 @@ export default function SolicitationAdminEdit({ match }) {
         <h1 className="mb-5">Solicitação #{params.id}</h1>
         <Form onSubmit={handleSubmit}>
           <div className="row mb-5">
-            <div className="col-lg-4">
+            <div className="col-lg-4 mb-5">
+              <div className="info">
+                <div className="title">Cliente</div>
+                {client && <div className="description">{client}</div>}
+              </div>
+            </div>
+            <div className="col-lg-6 mb-5">
+              <div className="info">
+                <div className="title">Preço pago</div>
+                {price && <div className="description">{price}</div>}
+              </div>
+            </div>
+            <div className="col-lg-4 mb-5">
               <div className="info">
                 <div className="title">Endereço de partida</div>
                 {origin.result && (
@@ -106,12 +170,36 @@ export default function SolicitationAdminEdit({ match }) {
                 )}
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 mb-5">
               <div className="info">
                 <div className="title">Endereço de destino</div>
                 {destiny.result && (
                   <div className="description">{destiny.result}</div>
                 )}
+              </div>
+            </div>
+            <div className="col-lg-4 mb-5">
+              <div className="info">
+                <div className="title">Criado em</div>
+                {createdAt && (
+                  <div className="description">
+                    {format(parseISO(createdAt), 'dd/MM/yyyy - HH:mm')}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="info">
+                <div className="title">Data de retirada</div>
+                <DatePicker
+                  dateFormat="dd/MM/yyyy"
+                  selected={collectionDate}
+                  onChange={(date) => setCollectionDate(date)}
+                  className="form-control"
+                  showTimeSelect
+                  locale="pt-BR"
+                  minDate={new Date()}
+                />
               </div>
             </div>
             <div className="col-lg-4">
@@ -131,6 +219,21 @@ export default function SolicitationAdminEdit({ match }) {
                   <option value="on_course">A caminho</option>
                   <option value="delivered">Entregue</option>
                   <option value="canceled">Cancelado</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="info">
+                <div className="title">Caminhoneiro</div>
+                <select
+                  className="form-control"
+                  value={truckerSelected}
+                  onChange={(e) => setTruckerSelected(e.target.value)}
+                >
+                  <option value="" label=" " />
+                  {truckers.map((item) => (
+                    <option value={item.id}>{item.name}</option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -160,6 +263,12 @@ export default function SolicitationAdminEdit({ match }) {
                 )}
               </div>
             </div>
+            {description && (
+              <div className="col-lg-12">
+                <p className="label-map mt-5">Descrição do pedido</p>
+                <p className="desc-map">{description}</p>
+              </div>
+            )}
           </div>
           <div className="d-flex justify-content-end mt-5">
             <button
@@ -170,7 +279,7 @@ export default function SolicitationAdminEdit({ match }) {
               {loading ? (
                 <AiOutlineLoading3Quarters color="#fff" size={14} />
               ) : (
-                'Salvar'
+                'Confirmar'
               )}
             </button>
           </div>

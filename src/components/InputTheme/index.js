@@ -13,6 +13,7 @@ export default function InputTheme({
   className,
   type,
   mask,
+  multline,
   ...rest
 }) {
   const inputRef = useRef(null);
@@ -32,14 +33,27 @@ export default function InputTheme({
       <div className="form-group">
         {label && <label htmlFor={id}>{label}</label>}
         {!mask ? (
-          <input
-            id={id}
-            type={type}
-            className="form-control"
-            ref={inputRef}
-            defaultValue={defaultValue}
-            {...rest}
-          />
+          <>
+            {!multline ? (
+              <input
+                id={id}
+                type={type}
+                className="form-control"
+                ref={inputRef}
+                defaultValue={defaultValue}
+                {...rest}
+              />
+            ) : (
+              <textarea
+                id={id}
+                type={type}
+                className="form-control"
+                ref={inputRef}
+                defaultValue={defaultValue}
+                {...rest}
+              />
+            )}
+          </>
         ) : (
           <InputMask mask={mask} maskChar={null} {...rest}>
             {(inputProps) => (
@@ -67,6 +81,7 @@ InputTheme.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   mask: PropTypes.string,
+  multline: PropTypes.bool,
 };
 
 InputTheme.defaultProps = {
@@ -76,4 +91,5 @@ InputTheme.defaultProps = {
   className: '',
   type: '',
   mask: '',
+  multline: false,
 };

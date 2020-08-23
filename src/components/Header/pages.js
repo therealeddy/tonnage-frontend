@@ -5,11 +5,11 @@ const pagesClient = [
   },
   {
     title: 'Criar Solicitação',
-    url: '/',
+    url: '/requests/create',
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/requests',
   },
   {
     title: 'Configurações',
@@ -19,8 +19,8 @@ const pagesClient = [
 
 const pagesTrucker = [
   {
-    title: 'Pedidos',
-    url: '/',
+    title: 'Dashboard',
+    url: '/dashboard',
   },
 ];
 
@@ -31,7 +31,7 @@ const pagesManager = [
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/manage-orders',
   },
   {
     title: 'Usúarios',
@@ -54,7 +54,7 @@ const pagesAdmin = [
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/manage-orders',
   },
   {
     title: 'Usúarios',

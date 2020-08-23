@@ -13,7 +13,8 @@ export { default as Trucks } from './Trucks';
 export { default as TrucksEdit } from './Trucks/Edit';
 export { default as TrucksCreate } from './Trucks/Create';
 
+export { default as SolicitationAdmin } from './Solicitation';
+export { default as SolicitationViewAdmin } from './Solicitation/ViewSolicitation';
+
 export { default as Loads } from './Loads';
-export { default as SolicitationAdminList } from './Solicitation/List';
-export { default as SolicitationAdminEdit } from './Solicitation/Edit';
 export { default as History } from './History';
