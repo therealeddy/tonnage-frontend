@@ -6,12 +6,12 @@ import { Form } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 
 import { Map } from '~/components';
+import token from '~/config/tokenMapbox';
 import api from '~/services/api';
 import history from '~/services/history';
 import { convertDistance, convertTime } from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
-import token from '~/utils/tokenMapbox';
 
 import { Container } from './styles';
 

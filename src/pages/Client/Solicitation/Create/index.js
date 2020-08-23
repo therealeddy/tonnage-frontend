@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
-import { Form } from '@rocketseat/unform';
+import { Form } from '@unform/web';
 
-import { SearchMap, Map } from '~/components';
+import { InputTheme, SearchMap, Map } from '~/components';
+import token from '~/config/tokenMapbox';
 import api from '~/services/api';
 import history from '~/services/history';
 import {
@@ -14,7 +15,6 @@ import {
 } from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
-import token from '~/utils/tokenMapbox';
 
 import { Container } from './styles';
 
@@ -71,7 +71,7 @@ export default function SolicitationUserCreate() {
     }
   }, [origin, destiny]);
 
-  async function handleSubmit() {
+  async function handleSubmit({ description }) {
     if (!origin.result || !destiny.result) {
       if (!origin.result) {
         setErrorOrigin(true);
@@ -91,6 +91,7 @@ export default function SolicitationUserCreate() {
       origin_address: destiny.result,
       origin_latitude: destiny.lat,
       origin_longitude: destiny.lng,
+      description,
     };
 
     const response = await api.post('/requests', data);
@@ -162,7 +163,18 @@ export default function SolicitationUserCreate() {
                 )}
               </div>
             </div>
+            <div className="col-lg-12">
+              <InputTheme
+                id="description"
+                name="description"
+                label="Descrição do pedido"
+                type="text"
+                multline
+                className="mt-5"
+              />
+            </div>
           </div>
+
           <div className="d-flex justify-content-end mt-5">
             <button
               type="submit"

@@ -5,11 +5,11 @@ const pagesClient = [
   },
   {
     title: 'Criar Solicitação',
-    url: '/',
+    url: '/requests/create',
   },
   {
     title: 'Pedidos',
-    url: '/',
+    url: '/requests',
   },
   {
     title: 'Configurações',

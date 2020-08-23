@@ -17,6 +17,11 @@ import {
   TrucksEdit,
   TrucksCreate,
 } from '~/pages/Admin';
+import {
+  SolicitationUserCreate,
+  SolicitationUser,
+  SolicitationUserView,
+} from '~/pages/Client';
 
 import Route from './Routes';
 
@@ -120,6 +125,26 @@ export default function Routes() {
           component={TrucksEdit}
           isPrivate
           roles={['admin', 'manager']}
+        />
+
+        <Route
+          path="/requests"
+          exact
+          component={SolicitationUser}
+          isPrivate
+          roles={['client']}
+        />
+        <Route
+          path="/requests/create"
+          component={SolicitationUserCreate}
+          isPrivate
+          roles={['client']}
+        />
+        <Route
+          path="/requests/view/:id"
+          component={SolicitationUserView}
+          isPrivate
+          roles={['client']}
         />
       </Switch>
     </Switch>

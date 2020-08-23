@@ -2,10 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import authConfig from '~/config/authConfig';
+import documentTitle from '~/utils/documentTitle';
 
 import { Container } from './styles';
 
 function Users() {
+  documentTitle('Usuários');
+
   const { keyRootStorage, configRolesArray } = authConfig;
 
   const root = JSON.parse(localStorage.getItem(keyRootStorage));
