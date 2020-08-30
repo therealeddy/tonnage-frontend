@@ -92,4 +92,9 @@ export default createGlobalStyle`
   .react-datepicker-wrapper {
     width: 100%;
   }
+
+  textarea {
+    height: 150px;
+    resize: none !important;
+  }
 `;
