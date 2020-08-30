@@ -136,7 +136,6 @@ export default function SolicitationAdminEdit({ match }) {
             <div className="col-lg-4 mb-5">
               <div className="info">
                 <div className="title">Data de retirada</div>
-                {console.tron.log(collectionDate, 'testandooo')}
                 {collectionDate && (
                   <div className="description">
                     {format(parseISO(collectionDate), 'dd/MM/yyyy - HH:mm')}
