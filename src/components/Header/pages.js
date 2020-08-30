@@ -13,7 +13,7 @@ const pagesClient = [
   },
   {
     title: 'Configurações',
-    url: '/',
+    url: '/configuration',
   },
 ];
 

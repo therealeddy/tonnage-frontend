@@ -19,6 +19,9 @@ export default function Edit({ match }) {
   const [loading, setLoading] = useState(false);
   const [loadingPage, setLoadingPage] = useState(false);
 
+  const [truckSelected, setTruckSelected] = useState('');
+  const [trucks, setTrucks] = useState([]);
+
   const formRef = useRef(null);
 
   const [user, setUser] = useState({
@@ -40,6 +43,16 @@ export default function Edit({ match }) {
       if (response.data.error) {
         toast.error(response.data.error);
         history.push('/users/trucker');
+      }
+
+      const responseTrucks = await api.get(`/trucks-association/${params.id}`);
+
+      setTrucks(responseTrucks.data);
+
+      const { truck } = response.data;
+
+      if (truck) {
+        setTruckSelected(truck.id);
       }
 
       setUser({
@@ -81,11 +94,11 @@ export default function Edit({ match }) {
 
       setLoading(true);
 
-      let dataSend = data;
+      let dataSend = { ...data, truckSelected };
 
       if (!password) {
         const { nickname, name, email, cpf, tel } = data;
-        dataSend = { nickname, name, email, cpf, tel };
+        dataSend = { nickname, name, email, cpf, tel, truckSelected };
       }
 
       const response = await api.put(`/users/${params.id}`, dataSend);
@@ -207,6 +220,19 @@ export default function Edit({ match }) {
                     setUser({ ...user, confirmPassword: e.target.value })
                   }
                 />
+              </div>
+              <div className="col-lg-6">
+                <div className="title">Caminhão</div>
+                <select
+                  className="form-control"
+                  value={truckSelected}
+                  onChange={(e) => setTruckSelected(e.target.value)}
+                >
+                  <option value="" label=" " />
+                  {trucks.map((truck) => (
+                    <option value={truck.id}>{truck.board}</option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="d-flex justify-content-end">

@@ -18,10 +18,26 @@ export default function Trucks() {
   const [loading, setLoading] = useState(true);
   const [totalPosts, setTotalPosts] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [truck, setTruck] = useState('');
 
   function setPage(number) {
     setCurrentPage(number);
   }
+
+  useEffect(() => {
+    async function getData() {
+      const response = await api.get('/truck-trucker');
+
+      if (response.data) {
+        setTruck(response.data.board);
+        return;
+      }
+
+      setTruck('Não possui caminhão');
+    }
+
+    getData();
+  }, []);
 
   useEffect(() => {
     async function getData() {
@@ -47,8 +63,9 @@ export default function Trucks() {
   return (
     <Container className="animated fadeIn">
       <div className="container">
-        <div className="mb-5 pb-5">
+        <div className="mb-5 pb-5 d-flex justify-content-between align-items-center">
           <h1>Seus pedidos de coleta</h1>
+          <h3>Seu caminhão: {truck}</h3>
         </div>
 
         {loading ? (

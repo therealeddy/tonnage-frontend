@@ -7,8 +7,4 @@ export const Container = styled.div`
     color: var(--red);
     font-size: 12px;
   }
-  textarea {
-    height: 150px;
-    resize: none;
-  }
 `;

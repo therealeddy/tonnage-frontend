@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
@@ -18,6 +18,19 @@ export default function Create() {
   const formRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [truckSelected, setTruckSelected] = useState('');
+  const [trucks, setTrucks] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const response = await api.get('/trucks-association');
+
+      setTrucks(response.data);
+    }
+
+    getData();
+  }, []);
 
   async function handleSubmit(data) {
     try {
@@ -49,6 +62,7 @@ export default function Create() {
       const response = await api.post('/users', {
         ...data,
         role: 2,
+        truckSelected,
       });
 
       if (response.data.success) {
@@ -145,6 +159,19 @@ export default function Create() {
                 type="password"
                 className="mb-5"
               />
+            </div>
+            <div className="col-lg-6">
+              <div className="title">Caminhão</div>
+              <select
+                className="form-control"
+                value={truckSelected}
+                onChange={(e) => setTruckSelected(e.target.value)}
+              >
+                <option value="" label=" " />
+                {trucks.map((truck) => (
+                  <option value={truck.id}>{truck.board}</option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="d-flex justify-content-end">
