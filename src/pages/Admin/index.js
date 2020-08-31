@@ -17,4 +17,7 @@ export { default as SolicitationAdmin } from './Solicitation';
 export { default as SolicitationViewAdmin } from './Solicitation/ViewSolicitation';
 
 export { default as Loads } from './Loads';
+export { default as LoadsCreate } from './Loads/Create';
+export { default as LoadsEdit } from './Loads/Edit';
+
 export { default as History } from './History';

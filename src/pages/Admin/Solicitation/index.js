@@ -160,7 +160,7 @@ export default function Trucks() {
                         <td>
                           <Status status={item.status} />
                         </td>
-                        <td />
+                        {item.load && <td>{item.load.name}</td>}
                         <td>
                           {item.collection_date
                             ? format(

@@ -32,6 +32,7 @@ export default function SolicitationAdminEdit({ match }) {
   const [description, setDescription] = useState('');
   const [collectionDate, setCollectionDate] = useState('');
   const [createdAt, setCreatedAt] = useState('');
+  const [load, setLoad] = useState({});
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -83,6 +84,8 @@ export default function SolicitationAdminEdit({ match }) {
       setDescription(response.data.description);
       setCollectionDate(response.data.collection_date);
       setCreatedAt(response.data.created_at);
+
+      setLoad(response.data.load);
     }
 
     getData();
@@ -146,7 +149,7 @@ export default function SolicitationAdminEdit({ match }) {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-lg-10">
             <Map
               origin={origin}
@@ -178,6 +181,21 @@ export default function SolicitationAdminEdit({ match }) {
             </div>
           )}
         </div>
+        {load && load.name && (
+          <>
+            <h4>Tipo Entrega</h4>
+
+            <div className="row mt-5">
+              <div className="col-lg-6">
+                <div className="box-load">
+                  <div className="title">{load.name}</div>
+                  <p>{load.description}</p>
+                  <div className="price">{convertFloatInPrice(load.price)}</div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </Container>
   );

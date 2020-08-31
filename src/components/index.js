@@ -6,3 +6,4 @@ export { default as Pagination } from './Pagination';
 export { default as SearchMap } from './SearchMap';
 export { default as Map } from './Map';
 export { default as Status } from './Status';
+export { default as InputPrice } from './InputPrice';

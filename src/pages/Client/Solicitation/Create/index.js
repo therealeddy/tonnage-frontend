@@ -15,6 +15,7 @@ import {
   convertDistance,
   convertTime,
   convertFloatInPrice,
+  convertPrice,
 } from '~/utils/convert';
 import documentTitle from '~/utils/documentTitle';
 import { isEmpty } from '~/utils/object';
@@ -34,6 +35,8 @@ export default function SolicitationUserCreate() {
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState('');
 
+  const [itemBuy, setItemBuy] = useState({});
+
   const [modalShow, setModalShow] = useState(false);
 
   const [errorOrigin, setErrorOrigin] = useState(false);
@@ -43,6 +46,18 @@ export default function SolicitationUserCreate() {
   const [hasCard, setHasCard] = useState(false);
 
   const formRef = useRef(null);
+
+  const [loads, setLoads] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const response = await api.get('/loads');
+
+      setLoads(response.data);
+    }
+
+    getData();
+  }, []);
 
   function suggestionOrigin(result, lat, lng, text) {
     setOrigin({ result, lat, lng, text });
@@ -103,7 +118,7 @@ export default function SolicitationUserCreate() {
     }
   }, [origin, destiny]);
 
-  function handleBuy() {
+  function handleBuy(item) {
     if (!origin.result || !destiny.result) {
       if (!origin.result) {
         setErrorOrigin(true);
@@ -113,6 +128,9 @@ export default function SolicitationUserCreate() {
       }
       return;
     }
+
+    setItemBuy(item);
+
     setErrorOrigin(false);
     setErrorDestiny(false);
     setModalShow(true);
@@ -167,6 +185,7 @@ export default function SolicitationUserCreate() {
         origin_latitude: destiny.lat,
         origin_longitude: destiny.lng,
         description,
+        id_load: itemBuy.id,
       };
 
       const response = await api.post('/requests', data);
@@ -215,7 +234,7 @@ export default function SolicitationUserCreate() {
             />
           </div>
         </div>
-        <div className="row">
+        <div className="row mb-5">
           <div className="col-lg-10">
             <Map
               focus={focus}
@@ -260,10 +279,27 @@ export default function SolicitationUserCreate() {
           </div>
         </div>
 
-        <div className="d-flex justify-content-end mt-5">
-          <button type="button" className="btn btn-primary" onClick={handleBuy}>
-            Comprar
-          </button>
+        <h4>Tipo Entrega</h4>
+
+        <div className="row mt-5">
+          {loads.map((item, index) => (
+            <div className="col-lg-4" key={String(index)}>
+              <div className="box-load">
+                <div className="title">{item.name}</div>
+                <p>{item.description}</p>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="price">{convertFloatInPrice(item.price)}</div>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => handleBuy(item)}
+                  >
+                    Comprar
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         <Modal
@@ -278,6 +314,15 @@ export default function SolicitationUserCreate() {
               <h3>Pagamento</h3>
             </Modal.Header>
             <Modal.Body>
+              {price && (
+                <div className="d-flex justify-content-between align-items-center py-4">
+                  <h4>{itemBuy.name}</h4>
+                  <h4>
+                    Total:{' '}
+                    {convertFloatInPrice(itemBuy.price + convertPrice(price))}
+                  </h4>
+                </div>
+              )}
               <div className="row">
                 <div className="col-lg-6">
                   {!hasCard ? (

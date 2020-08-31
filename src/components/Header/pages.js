@@ -62,7 +62,7 @@ const pagesAdmin = [
   },
   {
     title: 'Tipos de carga',
-    url: '/',
+    url: '/loads',
   },
   {
     title: 'Caminhões',
