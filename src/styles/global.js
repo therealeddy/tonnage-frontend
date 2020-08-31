@@ -23,7 +23,6 @@ export default createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-    list-style-type: none;
     font-family: 'Roboto', sans-serif;
   }
 

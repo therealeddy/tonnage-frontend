@@ -7,7 +7,7 @@ export const convertTime = (seconds) => {
 };
 
 export const convertPrice = (str) => {
-  const array = str.split('R$')[1].split('.');
+  const array = str.trim().split('R$')[1].split('.');
 
   const strReplace = {
     value: '',
