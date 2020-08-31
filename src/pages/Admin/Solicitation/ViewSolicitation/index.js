@@ -42,6 +42,8 @@ export default function SolicitationAdminEdit({ match }) {
   const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [load, setLoad] = useState({});
+
   const [truckers, setTruckers] = useState([]);
   const [truckerSelected, setTruckerSelected] = useState('');
 
@@ -119,6 +121,8 @@ export default function SolicitationAdminEdit({ match }) {
       setStatus(response.data.status);
       setDescription(response.data.description);
       setCreatedAt(response.data.created_at);
+
+      setLoad(response.data.load);
     }
 
     getData();
@@ -238,7 +242,7 @@ export default function SolicitationAdminEdit({ match }) {
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-lg-10">
               <Map
                 origin={origin}
@@ -270,6 +274,23 @@ export default function SolicitationAdminEdit({ match }) {
               </div>
             )}
           </div>
+          {load && load.name && (
+            <>
+              <h4>Tipo Entrega</h4>
+
+              <div className="row mt-4">
+                <div className="col-lg-6">
+                  <div className="box-load">
+                    <div className="title">{load.name}</div>
+                    <p>{load.description}</p>
+                    <div className="price">
+                      {convertFloatInPrice(load.price)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
           <div className="d-flex justify-content-end mt-5">
             <button
               type="submit"

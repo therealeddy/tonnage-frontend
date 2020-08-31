@@ -92,7 +92,7 @@ export default function Trucks() {
                         <th>{item.id}</th>
                         <td>{item.route.origin_address}</td>
                         <td>{item.route.destination_address}</td>
-                        <td />
+                        {item.load && <td>{item.load.name}</td>}
                         <td>
                           <Status status={item.status} />
                         </td>
