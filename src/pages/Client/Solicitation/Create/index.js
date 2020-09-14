@@ -177,15 +177,18 @@ export default function SolicitationUserCreate() {
 
       setLoading(true);
 
+      const { id: id_load } = itemBuy;
+
       const data = {
+        id_load,
+        description,
+        price_per_kilometer: convertPrice(price),
         destination_address: origin.result,
         destination_latitude: origin.lat,
         destination_longitude: origin.lng,
         origin_address: destiny.result,
         origin_latitude: destiny.lat,
         origin_longitude: destiny.lng,
-        description,
-        id_load: itemBuy.id,
       };
 
       const response = await api.post('/requests', data);
@@ -279,28 +282,39 @@ export default function SolicitationUserCreate() {
           </div>
         </div>
 
-        <h4>Tipo Entrega</h4>
+        {loads.length > 0 ? (
+          <>
+            <h4>Tipo Entrega</h4>
 
-        <div className="row mt-5">
-          {loads.map((item, index) => (
-            <div className="col-lg-4" key={String(index)}>
-              <div className="box-load">
-                <div className="title">{item.name}</div>
-                <p>{item.description}</p>
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="price">{convertFloatInPrice(item.price)}</div>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => handleBuy(item)}
-                  >
-                    Comprar
-                  </button>
+            <div className="row mt-5">
+              {loads.map((item, index) => (
+                <div className="col-lg-4" key={String(index)}>
+                  <div className="box-load">
+                    <div className="title">{item.name}</div>
+                    <p>{item.description}</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="price">
+                        {convertFloatInPrice(item.price)}
+                      </div>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => handleBuy(item)}
+                      >
+                        Comprar
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : (
+          <h5>
+            Ainda não estão disponiveis os tipos de cargas, tente novamente mais
+            tarde!
+          </h5>
+        )}
 
         <Modal
           show={modalShow}

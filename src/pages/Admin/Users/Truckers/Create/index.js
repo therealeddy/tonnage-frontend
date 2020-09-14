@@ -168,8 +168,10 @@ export default function Create() {
                 onChange={(e) => setTruckSelected(e.target.value)}
               >
                 <option value="" label=" " />
-                {trucks.map((truck) => (
-                  <option value={truck.id}>{truck.board}</option>
+                {trucks.map((truck, index) => (
+                  <option value={truck.id} key={String(index)}>
+                    {truck.board}
+                  </option>
                 ))}
               </select>
             </div>

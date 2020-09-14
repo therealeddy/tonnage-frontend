@@ -31,6 +31,7 @@ export default function SolicitationAdminEdit({ match }) {
   const [description, setDescription] = useState('');
   const [collectionDate, setCollectionDate] = useState('');
   const [loading, setLoading] = useState(false);
+  const [load, setLoad] = useState(null);
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -82,6 +83,7 @@ export default function SolicitationAdminEdit({ match }) {
 
       setStatus(response.data.status);
       setDescription(response.data.description);
+      setLoad(response.data.transaction.name_load);
     }
 
     getData();
@@ -111,10 +113,16 @@ export default function SolicitationAdminEdit({ match }) {
         <h1 className="mb-5">Solicitação #{params.id}</h1>
         <Form onSubmit={handleSubmit}>
           <div className="row mb-5">
-            <div className="col-lg-12 mb-5">
+            <div className="col-lg-4 mb-5">
               <div className="info">
                 <div className="title">Cliente</div>
                 {client && <div className="description">{client}</div>}
+              </div>
+            </div>
+            <div className="col-lg-8 mb-5">
+              <div className="info">
+                <div className="title">Tipo de carga</div>
+                {load && <div className="description">{load}</div>}
               </div>
             </div>
             <div className="col-lg-4 mb-5">
