@@ -4,7 +4,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
 import { Form } from '@unform/web';
-import { parseISO, format } from 'date-fns';
+import { addHours, setSeconds, setMinutes, parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import PropTypes from 'prop-types';
 
@@ -29,7 +29,6 @@ export default function SolicitationAdminEdit({ match }) {
 
   documentTitle(`Solicitação #${params.id}`);
 
-  const [price, setPrice] = useState(null);
   const [status, setStatus] = useState('');
   const [client, setClient] = useState('');
   const [origin, setOrigin] = useState({});
@@ -38,11 +37,14 @@ export default function SolicitationAdminEdit({ match }) {
   const [duration, setDuration] = useState('');
   const [distance, setDistance] = useState('');
   const [description, setDescription] = useState('');
-  const [collectionDate, setCollectionDate] = useState(new Date());
+  const [collectionDate, setCollectionDate] = useState(
+    setMinutes(setSeconds(addHours(new Date(), 1), 0), 0)
+  );
   const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorTrucker, setErrorTrucker] = useState(false);
 
-  const [load, setLoad] = useState({});
+  const [transaction, setTransaction] = useState({});
 
   const [truckers, setTruckers] = useState([]);
   const [truckerSelected, setTruckerSelected] = useState('');
@@ -58,12 +60,6 @@ export default function SolicitationAdminEdit({ match }) {
       );
 
       const { duration: dur, distance: dis } = response.data.routes[0];
-
-      const response_config = await api.get('/configurations');
-
-      const { price_per_kilometer } = response_config.data;
-
-      setPrice(convertFloatInPrice(price_per_kilometer * (dis / 1000)));
 
       setRoute(response.data.routes[0].geometry.coordinates);
       setDuration(convertTime(dur));
@@ -122,14 +118,21 @@ export default function SolicitationAdminEdit({ match }) {
       setDescription(response.data.description);
       setCreatedAt(response.data.created_at);
 
-      setLoad(response.data.load);
+      setTransaction(response.data.transaction);
     }
 
     getData();
   }, [params]);
 
   async function handleSubmit() {
+    if (!truckerSelected) {
+      setErrorTrucker(true);
+      return;
+    }
+
     setLoading(true);
+
+    setErrorTrucker(false);
 
     const response = await api.put(`/requests-admin/${params.id}`, {
       status,
@@ -162,8 +165,12 @@ export default function SolicitationAdminEdit({ match }) {
             </div>
             <div className="col-lg-6 mb-5">
               <div className="info">
-                <div className="title">Preço pago</div>
-                {price && <div className="description">{price}</div>}
+                <div className="title">Preço pago pela distancia</div>
+                {transaction.price_per_kilometer && (
+                  <div className="description">
+                    {convertFloatInPrice(transaction.price_per_kilometer)}
+                  </div>
+                )}
               </div>
             </div>
             <div className="col-lg-4 mb-5">
@@ -196,7 +203,7 @@ export default function SolicitationAdminEdit({ match }) {
               <div className="info">
                 <div className="title">Data de retirada</div>
                 <DatePicker
-                  dateFormat="dd/MM/yyyy"
+                  dateFormat="dd/MM/yyyy - HH:mm"
                   selected={collectionDate}
                   onChange={(date) => setCollectionDate(date)}
                   className="form-control"
@@ -235,10 +242,15 @@ export default function SolicitationAdminEdit({ match }) {
                   onChange={(e) => setTruckerSelected(e.target.value)}
                 >
                   <option value="" label=" " />
-                  {truckers.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                  {truckers.map((item, index) => (
+                    <option value={item.id} key={String(index)}>
+                      {item.name}
+                    </option>
                   ))}
                 </select>
+                {errorTrucker && (
+                  <span className="error">Campo obrigatorio!</span>
+                )}
               </div>
             </div>
           </div>
@@ -274,17 +286,17 @@ export default function SolicitationAdminEdit({ match }) {
               </div>
             )}
           </div>
-          {load && load.name && (
+          {transaction && transaction.name_load && (
             <>
-              <h4>Tipo Entrega</h4>
+              <h4 className="mt-5 mb-4">Tipo de carga</h4>
 
               <div className="row mt-4">
                 <div className="col-lg-6">
                   <div className="box-load">
-                    <div className="title">{load.name}</div>
-                    <p>{load.description}</p>
+                    <div className="title">{transaction.name_load}</div>
+                    <p>{transaction.description_load}</p>
                     <div className="price">
-                      {convertFloatInPrice(load.price)}
+                      {convertFloatInPrice(transaction.price_load)}
                     </div>
                   </div>
                 </div>

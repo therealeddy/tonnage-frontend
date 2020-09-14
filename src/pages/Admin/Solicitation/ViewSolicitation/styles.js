@@ -42,4 +42,9 @@ export const Container = styled.div`
       color: #373a3c;
     }
   }
+
+  span.error {
+    color: var(--red);
+    font-size: 12px;
+  }
 `;

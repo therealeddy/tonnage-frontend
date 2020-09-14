@@ -21,7 +21,7 @@ export const convertPrice = (str) => {
 };
 
 export const convertFloatInPrice = (price) => {
-  return price.toLocaleString('pt-BR', {
+  return Number(price).toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });

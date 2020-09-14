@@ -22,7 +22,6 @@ export default function SolicitationAdminEdit({ match }) {
 
   documentTitle(`Solicitação #${params.id}`);
 
-  const [price, setPrice] = useState(null);
   const [status, setStatus] = useState('');
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
@@ -32,7 +31,7 @@ export default function SolicitationAdminEdit({ match }) {
   const [description, setDescription] = useState('');
   const [collectionDate, setCollectionDate] = useState('');
   const [createdAt, setCreatedAt] = useState('');
-  const [load, setLoad] = useState({});
+  const [transaction, setTransaction] = useState({});
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -45,12 +44,6 @@ export default function SolicitationAdminEdit({ match }) {
       );
 
       const { duration: dur, distance: dis } = response.data.routes[0];
-
-      const response_config = await api.get('/configurations');
-
-      const { price_per_kilometer } = response_config.data;
-
-      setPrice(convertFloatInPrice(price_per_kilometer * (dis / 1000)));
 
       setRoute(response.data.routes[0].geometry.coordinates);
       setDuration(convertTime(dur));
@@ -85,7 +78,7 @@ export default function SolicitationAdminEdit({ match }) {
       setCollectionDate(response.data.collection_date);
       setCreatedAt(response.data.created_at);
 
-      setLoad(response.data.load);
+      setTransaction(response.data.transaction);
     }
 
     getData();
@@ -144,8 +137,12 @@ export default function SolicitationAdminEdit({ match }) {
           </div>
           <div className="col-lg-4">
             <div className="info">
-              <div className="title">Preço pago</div>
-              {price && <div className="description">{price}</div>}
+              <div className="title">Preço pago pela distancia</div>
+              {transaction && (
+                <div className="description">
+                  {convertFloatInPrice(transaction.price_per_kilometer)}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -181,16 +178,18 @@ export default function SolicitationAdminEdit({ match }) {
             </div>
           )}
         </div>
-        {load && load.name && (
+        {transaction && transaction.name_load && (
           <>
-            <h4>Tipo Entrega</h4>
+            <h4 className="mt-5 mb-4">Tipo de carga</h4>
 
-            <div className="row mt-5">
+            <div className="row">
               <div className="col-lg-6">
                 <div className="box-load">
-                  <div className="title">{load.name}</div>
-                  <p>{load.description}</p>
-                  <div className="price">{convertFloatInPrice(load.price)}</div>
+                  <div className="title">{transaction.name_load}</div>
+                  <p>{transaction.description_load}</p>
+                  <div className="price">
+                    {convertFloatInPrice(transaction.price_load)}
+                  </div>
                 </div>
               </div>
             </div>

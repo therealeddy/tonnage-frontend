@@ -117,8 +117,10 @@ export default function Trucks() {
                   onChange={(e) => setClientSelected(e.target.value)}
                 >
                   <option value="" label=" " />
-                  {clients.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                  {clients.map((item, index) => (
+                    <option value={item.id} key={String(index)}>
+                      {item.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -130,8 +132,10 @@ export default function Trucks() {
                   onChange={(e) => setTruckerSelected(e.target.value)}
                 >
                   <option value="" label=" " />
-                  {truckers.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                  {truckers.map((item, index) => (
+                    <option value={item.id} key={String(index)}>
+                      {item.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -160,7 +164,9 @@ export default function Trucks() {
                         <td>
                           <Status status={item.status} />
                         </td>
-                        {item.load && <td>{item.load.name}</td>}
+                        <td>
+                          {item.transaction && item.transaction.name_load}
+                        </td>
                         <td>
                           {item.collection_date
                             ? format(
