@@ -144,7 +144,7 @@ export default function SolicitationUserCreate() {
 
       if (hasCard) {
         schema = Yup.object().shape({
-          cpf: Yup.string()
+          holderName: Yup.string()
             .min(14, 'CPF invalido')
             .required('Campo obrigatório'),
           cod: Yup.string()
@@ -159,7 +159,7 @@ export default function SolicitationUserCreate() {
           numberCard: Yup.string()
             .min(19, 'Numero do cartão invalido')
             .required('Campo obrigatório'),
-          cpf: Yup.string()
+          holderName: Yup.string()
             .min(14, 'CPF invalido')
             .required('Campo obrigatório'),
           cod: Yup.string()
@@ -181,14 +181,19 @@ export default function SolicitationUserCreate() {
 
       const data = {
         id_load,
-        description,
         price_per_kilometer: convertPrice(price),
-        destination_address: origin.result,
-        destination_latitude: origin.lat,
-        destination_longitude: origin.lng,
-        origin_address: destiny.result,
-        origin_latitude: destiny.lat,
-        origin_longitude: destiny.lng,
+        description,
+        route: {
+          destination_address: origin.result,
+          destination_latitude: origin.lat,
+          destination_longitude: origin.lng,
+          origin_address: destiny.result,
+          origin_latitude: destiny.lat,
+          origin_longitude: destiny.lng,
+        },
+        card: {
+          ...dataForm,
+        },
       };
 
       const response = await api.post('/requests', data);
@@ -356,11 +361,10 @@ export default function SolicitationUserCreate() {
                 </div>
                 <div className="col-lg-6">
                   <InputTheme
-                    id="cpf"
-                    name="cpf"
-                    label="CPF do titular"
+                    id="holderName"
+                    name="holderName"
+                    label="Nome do titular"
                     type="text"
-                    mask="999.999.999-99"
                   />
                 </div>
                 <div className="col-lg-6">
