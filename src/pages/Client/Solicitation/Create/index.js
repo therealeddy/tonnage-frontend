@@ -166,7 +166,7 @@ export default function SolicitationUserCreate() {
             .min(3, 'Codigo invalido')
             .required('Campo obrigatório'),
           dateValidity: Yup.string()
-            .min(7, 'Data invalida')
+            .min(5, 'Data invalida')
             .required('Campo obrigatório'),
         });
       }
@@ -373,7 +373,7 @@ export default function SolicitationUserCreate() {
                     name="dateValidity"
                     label="Data de validade"
                     type="text"
-                    mask="99/9999"
+                    mask="99/99"
                   />
                 </div>
                 <div className="col-lg-6">
