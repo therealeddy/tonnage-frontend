@@ -64,6 +64,11 @@ function Configuration() {
         return;
       }
 
+      if (response.data.error) {
+        toast.error(response.data.error);
+        return;
+      }
+
       const { number } = response.data;
 
       setNumberCard(number.split(' ')[3]);

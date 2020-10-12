@@ -96,6 +96,11 @@ export default function SolicitationAdminEdit({ match }) {
       status,
     });
 
+    if (response.data.error) {
+      toast.success(response.data.error);
+      return;
+    }
+
     if (response.data.success) {
       toast.success(response.data.success);
       history.push('/manage-orders');
@@ -167,7 +172,6 @@ export default function SolicitationAdminEdit({ match }) {
                   <option value="retired">Retirado</option>
                   <option value="on_course">A caminho</option>
                   <option value="delivered">Entregue</option>
-                  <option value="canceled">Cancelado</option>
                 </select>
               </div>
             </div>
