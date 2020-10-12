@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
@@ -30,6 +31,8 @@ export default function SolicitationAdminEdit({ match }) {
   documentTitle(`Solicitação #${params.id}`);
 
   const [status, setStatus] = useState('');
+  const [modalShow, setModalShow] = useState(false);
+  const [isCanceled, setIsCanceled] = useState(false);
   const [client, setClient] = useState('');
   const [origin, setOrigin] = useState({});
   const [destiny, setDestiny] = useState({});
@@ -42,12 +45,11 @@ export default function SolicitationAdminEdit({ match }) {
   );
   const [createdAt, setCreatedAt] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorTrucker, setErrorTrucker] = useState(false);
 
   const [transaction, setTransaction] = useState({});
 
   const [truckers, setTruckers] = useState([]);
-  const [truckerSelected, setTruckerSelected] = useState('');
+  const [truckerSelected, setTruckerSelected] = useState(null);
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -115,6 +117,8 @@ export default function SolicitationAdminEdit({ match }) {
       }
 
       setStatus(response.data.status);
+
+      setIsCanceled(response.data.status === 'canceled');
       setDescription(response.data.description);
       setCreatedAt(response.data.created_at);
 
@@ -124,15 +128,8 @@ export default function SolicitationAdminEdit({ match }) {
     getData();
   }, [params]);
 
-  async function handleSubmit() {
-    if (!truckerSelected) {
-      setErrorTrucker(true);
-      return;
-    }
-
+  async function handleSubmitForm() {
     setLoading(true);
-
-    setErrorTrucker(false);
 
     const response = await api.put(`/requests-admin/${params.id}`, {
       status,
@@ -149,6 +146,15 @@ export default function SolicitationAdminEdit({ match }) {
     toast.error('Ocorreu algum erro!');
 
     setLoading(false);
+  }
+
+  function handleSubmit() {
+    if (isCanceled === false && status === 'canceled') {
+      setModalShow(true);
+      return;
+    }
+
+    handleSubmitForm();
   }
 
   return (
@@ -220,16 +226,25 @@ export default function SolicitationAdminEdit({ match }) {
                   className="form-control"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
+                  disabled={isCanceled}
                 >
                   <option value="" disabled>
                     Status
                   </option>
-                  <option value="create">Criado</option>
-                  <option value="scheduled">Agendado</option>
-                  <option value="retired">Retirado</option>
-                  <option value="on_course">A caminho</option>
-                  <option value="delivered">Entregue</option>
-                  <option value="canceled">Cancelado</option>
+                  {isCanceled ? (
+                    <option value="canceled" disabled={isCanceled}>
+                      Cancelado
+                    </option>
+                  ) : (
+                    <>
+                      <option value="create">Criado</option>
+                      <option value="scheduled">Agendado</option>
+                      <option value="retired">Retirado</option>
+                      <option value="on_course">A caminho</option>
+                      <option value="delivered">Entregue</option>
+                      <option value="canceled">Cancelado</option>
+                    </>
+                  )}
                 </select>
               </div>
             </div>
@@ -248,9 +263,6 @@ export default function SolicitationAdminEdit({ match }) {
                     </option>
                   ))}
                 </select>
-                {errorTrucker && (
-                  <span className="error">Campo obrigatorio!</span>
-                )}
               </div>
             </div>
           </div>
@@ -318,6 +330,45 @@ export default function SolicitationAdminEdit({ match }) {
           </div>
         </Form>
       </div>
+
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <h3>Tem certeza que deseja cancelar?</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Esta ação irá devolver o dinheiro ao cliente e após o estorno, não
+            terá como mudar o status da solicitação novamente!
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            type="button"
+            className={`btn btn-success ${loading && 'disabled btn-loading'}`}
+            disabled={loading}
+            onClick={handleSubmitForm}
+          >
+            {loading ? (
+              <AiOutlineLoading3Quarters color="#fff" size={14} />
+            ) : (
+              'Confirmar'
+            )}
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setModalShow(false)}
+          >
+            Fechar
+          </button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
