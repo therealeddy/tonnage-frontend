@@ -151,7 +151,7 @@ export default function SolicitationUserCreate() {
             .min(3, 'Codigo invalido')
             .required('Campo obrigatório'),
           dateValidity: Yup.string()
-            .min(7, 'Data invalida')
+            .min(5, 'Data invalida')
             .required('Campo obrigatório'),
         });
       } else {
@@ -193,6 +193,7 @@ export default function SolicitationUserCreate() {
         },
         card: {
           ...dataForm,
+          hasCard,
         },
       };
 

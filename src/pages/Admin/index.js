@@ -21,3 +21,5 @@ export { default as LoadsCreate } from './Loads/Create';
 export { default as LoadsEdit } from './Loads/Edit';
 
 export { default as History } from './History';
+
+export { default as Dashboard } from './Dashboard';
