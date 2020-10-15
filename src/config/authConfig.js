@@ -8,9 +8,9 @@ export default {
   },
   configRolesArray: [
     null,
-    'cliente',
-    'caminhoneiro',
-    'gerente',
-    'administrador',
+    'Cliente',
+    'Caminhoneiro',
+    'Gerente',
+    'Administrador',
   ],
 };

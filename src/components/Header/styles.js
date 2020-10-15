@@ -4,6 +4,17 @@ import { logo } from '~/images';
 
 export const Container = styled.div`
   display: block;
+
+  .nickname {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    img {
+      border-radius: 100px;
+      margin-left: 15px;
+    }
+  }
+
   header.top {
     display: flex;
     align-items: center;
@@ -15,6 +26,7 @@ export const Container = styled.div`
     background-color: #ffffff;
     padding: 15px 40px;
     z-index: 10;
+    justify-content: space-between;
     div.logo {
       width: 180px;
       height: 30px;

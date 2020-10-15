@@ -12,14 +12,17 @@ export default function Header() {
 
   const root = JSON.parse(localStorage.getItem(keyRootStorage));
 
+  const { nickname } = root.user;
+
   const pagesConfig = {
-    cliente: pagesClient,
-    caminhoneiro: pagesTrucker,
-    gerente: pagesManager,
-    administrador: pagesAdmin,
+    Cliente: pagesClient,
+    Caminhoneiro: pagesTrucker,
+    Gerente: pagesManager,
+    Administrador: pagesAdmin,
   };
 
   const pages = pagesConfig[configRolesArray[root.user.role]];
+  const roleName = configRolesArray[root.user.role];
 
   function handleExit() {
     logout();
@@ -29,6 +32,13 @@ export default function Header() {
     <Container>
       <header className="top z-depth-1">
         <div className="logo" />
+        <div className="nickname">
+          {`${roleName}, ${nickname}`}
+          <img
+            src="https://api.adorable.io/avatars/40/abott@adorable.io.png"
+            alt="avatar"
+          />
+        </div>
       </header>
       <header className="left">
         <ul>

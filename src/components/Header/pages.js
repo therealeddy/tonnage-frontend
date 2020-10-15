@@ -13,7 +13,7 @@ const pagesClient = [
   },
   {
     title: 'Configurações',
-    url: '/configuration',
+    url: '/config-profile',
   },
 ];
 
@@ -43,7 +43,7 @@ const pagesManager = [
   },
   {
     title: 'Configurações',
-    url: '/',
+    url: '/config-profile',
   },
 ];
 
@@ -70,7 +70,7 @@ const pagesAdmin = [
   },
   {
     title: 'Configurações',
-    url: '/',
+    url: '/config-profile',
   },
 ];
 

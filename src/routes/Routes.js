@@ -20,10 +20,12 @@ export default function RouteWrapper({
   const rolesRote = roles.map((role) => configRolesObject[role]);
 
   if (!root && isPrivate) {
+    console.tron.log('1');
     return <Redirect to="/" />;
   }
 
   if (root && !isPrivate) {
+    console.tron.log('2');
     return <Redirect to="/dashboard" />;
   }
 

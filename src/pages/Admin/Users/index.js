@@ -22,7 +22,7 @@ function Users() {
           <h1>Usúarios</h1>
         </div>
         <div className="row">
-          {role === 'administrador' && (
+          {role === 'Administrador' && (
             <>
               <div className="col-lg-4">
                 <Link className="card" to="/users/client">

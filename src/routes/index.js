@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import { Dashboard, Login, Register } from '~/pages';
+import { Dashboard, ConfigProfile, Login, Register } from '~/pages';
 import {
   Users,
   UsersClients,
@@ -203,6 +203,13 @@ export default function Routes() {
           component={LoadsEdit}
           isPrivate
           roles={['admin']}
+        />
+
+        <Route
+          path="/config-profile"
+          component={ConfigProfile}
+          isPrivate
+          roles={['client', 'admin', 'manager']}
         />
       </Switch>
     </Switch>
