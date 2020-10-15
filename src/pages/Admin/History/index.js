@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Loading } from '~/components';
+import { Loading, Pagination } from '~/components';
 import api from '~/services/api';
 import documentTitle from '~/utils/documentTitle';
 
@@ -15,33 +15,54 @@ export default function History() {
   const [selected, setSelected] = useState('disabled');
   const [loading, setLoading] = useState(true);
 
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  async function getData(paged) {
+    setLoading(true);
+
+    const response = await api.get('histories', {
+      params: {
+        paged,
+      },
+    });
+
+    const responseReqs = await api.get('requests-admin', {
+      params: {
+        findAll: true,
+      },
+    });
+
+    setHistories(response.data.rows);
+
+    setTotalPosts(response.data.count);
+
+    setRequests(responseReqs.data.rows);
+
+    setLoading(false);
+  }
+
   useEffect(() => {
-    async function getData() {
-      setLoading(true);
-
-      const response = await api.get('histories');
-      const responseReqs = await api.get('/requests');
-
-      setHistories(response.data);
-
-      setRequests(responseReqs.data);
-
-      setLoading(false);
-    }
-
-    getData();
-  }, []);
+    getData(currentPage);
+  }, [currentPage]);
 
   async function handleFilter(id) {
     setSelected(id);
 
-    setLoading(true);
+    if (id !== 'all') {
+      setLoading(true);
 
-    const response = await api.get(`histories/${id}`);
+      const response = await api.get(`histories/${id}`);
 
-    setHistories(response.data);
+      setTotalPosts(0);
 
-    setLoading(false);
+      setHistories(response.data);
+
+      setLoading(false);
+      return;
+    }
+    setCurrentPage(1);
+    getData(1);
   }
 
   return (
@@ -60,9 +81,7 @@ export default function History() {
                   className="form-control"
                   onChange={(e) => handleFilter(e.target.value)}
                 >
-                  <option value="disabled" disabled>
-                    Pedido de coleta
-                  </option>
+                  <option value="all">Todos</option>
                   {requests.map((item, index) => (
                     <option value={item.id} key={String(index)}>
                       Solicitação #{item.id}
@@ -76,6 +95,12 @@ export default function History() {
                 <ItemHistory history={item} key={String(index)} />
               ))}
             </div>
+            <Pagination
+              postsPerPage={5}
+              totalPosts={totalPosts}
+              setPaged={(number) => setCurrentPage(number)}
+              currentPage={currentPage}
+            />
           </>
         )}
       </div>

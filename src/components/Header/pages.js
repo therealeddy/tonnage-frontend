@@ -42,6 +42,10 @@ const pagesManager = [
     url: '/trucks',
   },
   {
+    title: 'Historico',
+    url: '/history',
+  },
+  {
     title: 'Configurações',
     url: '/config-profile',
   },
@@ -67,6 +71,10 @@ const pagesAdmin = [
   {
     title: 'Caminhões',
     url: '/trucks',
+  },
+  {
+    title: 'Historico',
+    url: '/history',
   },
   {
     title: 'Configurações',

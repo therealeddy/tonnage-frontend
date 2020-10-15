@@ -21,6 +21,7 @@ import {
   Loads,
   LoadsCreate,
   LoadsEdit,
+  History,
 } from '~/pages/Admin';
 import {
   SolicitationUserCreate,
@@ -210,6 +211,13 @@ export default function Routes() {
           component={ConfigProfile}
           isPrivate
           roles={['client', 'admin', 'manager']}
+        />
+
+        <Route
+          path="/history"
+          component={History}
+          isPrivate
+          roles={['admin', 'manager']}
         />
       </Switch>
     </Switch>
