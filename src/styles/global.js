@@ -39,7 +39,10 @@ export default createGlobalStyle`
     display: block;
     width: 100%;
     height: 100%;
-    padding: 150px 0 30px 300px;
+    padding: 100px 0 30px;
+    @media (min-width: 992px) {
+      padding: 150px 0 30px 300px;
+    }
   }
 
   .z-depth-1 {
