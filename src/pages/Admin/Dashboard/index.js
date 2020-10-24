@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 import { Loading } from '~/components';
 import { money, truck } from '~/images';
@@ -18,6 +19,7 @@ function Dashboard() {
     priceThisMonth: '',
     priceThisWeek: '',
     priceThisDay: '',
+    evaluationsData: [0, 0, 0, 0, 0],
   });
 
   useEffect(() => {
@@ -35,12 +37,39 @@ function Dashboard() {
         rowsThisMonth,
         rowsThisWeek,
         rowsThisDay,
+        evaluations,
       } = response.data;
+
+      console.tron.log(evaluations);
 
       let priceTotal = 0;
       let priceThisMonth = 0;
       let priceThisWeek = 0;
       let priceThisDay = 0;
+
+      let evaOne = 0;
+      let evaTwo = 0;
+      let evaThree = 0;
+      let evaFour = 0;
+      let evaFive = 0;
+
+      evaluations.forEach((item) => {
+        if (item.evaluation === 1) {
+          evaOne += 1;
+        }
+        if (item.evaluation === 2) {
+          evaTwo += 1;
+        }
+        if (item.evaluation === 3) {
+          evaThree += 1;
+        }
+        if (item.evaluation === 4) {
+          evaFour += 1;
+        }
+        if (item.evaluation === 5) {
+          evaFive += 1;
+        }
+      });
 
       rowsThisTotal.forEach((item) => {
         priceTotal += item.transaction.price_total;
@@ -67,6 +96,7 @@ function Dashboard() {
         priceThisMonth: convertFloatInPrice(priceThisMonth),
         priceThisWeek: convertFloatInPrice(priceThisWeek),
         priceThisDay: convertFloatInPrice(priceThisDay),
+        evaluationsData: [evaOne, evaTwo, evaThree, evaFour, evaFive],
       });
 
       setLoading(false);
@@ -121,7 +151,6 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-
             <h2 className="mb-5">Lucro</h2>
             <div className="row">
               <div className="col-lg-6">
@@ -159,6 +188,42 @@ function Dashboard() {
                   </div>
                   <div className="value-box">{report.priceThisDay}</div>
                 </div>
+              </div>
+            </div>
+
+            <h2 className="mb-5">Avaliações</h2>
+            <div className="row">
+              <div className="col-lg-6">
+                <ReactApexChart
+                  series={[
+                    {
+                      name: 'Quantidade',
+                      data: report.evaluationsData,
+                    },
+                  ]}
+                  options={{
+                    dataLabels: {
+                      enabled: false,
+                    },
+                    xaxis: {
+                      type: 'category',
+                      categories: [
+                        '1 estrela',
+                        '2 estrelas',
+                        '3 estrelas',
+                        '4 estrelas',
+                        '5 estrelas',
+                      ],
+                    },
+                    chart: {
+                      toolbar: {
+                        show: false,
+                      },
+                    },
+                  }}
+                  type="bar"
+                  height={350}
+                />
               </div>
             </div>
           </div>

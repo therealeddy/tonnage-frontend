@@ -49,6 +49,7 @@ module.exports = {
     'consistent-return': 'off',
     'no-nested-ternary': 'off',
     'no-prototype-builtins': 'error',
+    'prefer-const': 'off',
     'import-helpers/order-imports': [
       'warn',
       {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
+import Rating from '@material-ui/lab/Rating';
 import { Form } from '@unform/web';
 import { parseISO, format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -32,6 +33,11 @@ export default function SolicitationAdminEdit({ match }) {
   const [collectionDate, setCollectionDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [load, setLoad] = useState(null);
+
+  const [evaluation, setEvaluation] = useState({
+    evaluation: null,
+    comment: null,
+  });
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -84,6 +90,8 @@ export default function SolicitationAdminEdit({ match }) {
       setStatus(response.data.status);
       setDescription(response.data.description);
       setLoad(response.data.transaction.name_load);
+
+      setEvaluation(response.data.evaluation);
     }
 
     getData();
@@ -207,6 +215,19 @@ export default function SolicitationAdminEdit({ match }) {
                 <p className="desc-map">{description}</p>
               </div>
             )}
+          </div>
+          <div className="row">
+            <div className="col-lg-6">
+              <h4 className="mt-5 mb-4">Avaliação</h4>
+              {!evaluation ? (
+                <Rating value={0} size="large" disabled />
+              ) : (
+                <>
+                  <Rating value={evaluation.evaluation} size="large" disabled />
+                  <p>{evaluation.comment}</p>
+                </>
+              )}
+            </div>
           </div>
           <div className="d-flex justify-content-end mt-5">
             <button

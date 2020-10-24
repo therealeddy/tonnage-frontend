@@ -42,4 +42,11 @@ export const Container = styled.div`
       color: #373a3c;
     }
   }
+
+  .button-rating {
+    background-color: transparent;
+    border: 0px solid;
+    outline: none;
+    cursor: pointer;
+  }
 `;

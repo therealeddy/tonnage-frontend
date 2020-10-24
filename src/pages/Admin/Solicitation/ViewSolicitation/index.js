@@ -4,6 +4,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
+import Rating from '@material-ui/lab/Rating';
 import { Form } from '@unform/web';
 import { addHours, setSeconds, setMinutes, parseISO, format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -50,6 +51,11 @@ export default function SolicitationAdminEdit({ match }) {
 
   const [truckers, setTruckers] = useState([]);
   const [truckerSelected, setTruckerSelected] = useState(null);
+
+  const [evaluation, setEvaluation] = useState({
+    evaluation: null,
+    comment: null,
+  });
 
   function getUrlApiRoute(start, end) {
     return `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}.json?access_token=${token}&geometries=geojson`;
@@ -123,6 +129,8 @@ export default function SolicitationAdminEdit({ match }) {
       setCreatedAt(response.data.created_at);
 
       setTransaction(response.data.transaction);
+
+      setEvaluation(response.data.evaluation);
     }
 
     getData();
@@ -298,12 +306,12 @@ export default function SolicitationAdminEdit({ match }) {
               </div>
             )}
           </div>
-          {transaction && transaction.name_load && (
-            <>
-              <h4 className="mt-5 mb-4">Tipo de carga</h4>
+          <div className="row">
+            <div className="col-lg-6">
+              {transaction && transaction.name_load && (
+                <>
+                  <h4 className="mt-5 mb-4">Tipo de carga</h4>
 
-              <div className="row mt-4">
-                <div className="col-lg-6">
                   <div className="box-load">
                     <div className="title">{transaction.name_load}</div>
                     <p>{transaction.description_load}</p>
@@ -311,10 +319,21 @@ export default function SolicitationAdminEdit({ match }) {
                       {convertFloatInPrice(transaction.price_load)}
                     </div>
                   </div>
-                </div>
-              </div>
-            </>
-          )}
+                </>
+              )}
+            </div>
+            <div className="col-lg-6">
+              <h4 className="mt-5 mb-4">Avaliação</h4>
+              {!evaluation ? (
+                <Rating value={0} size="large" disabled />
+              ) : (
+                <>
+                  <Rating value={evaluation.evaluation} size="large" disabled />
+                  <p>{evaluation.comment}</p>
+                </>
+              )}
+            </div>
+          </div>
           <div className="d-flex justify-content-end mt-5">
             <button
               type="submit"
