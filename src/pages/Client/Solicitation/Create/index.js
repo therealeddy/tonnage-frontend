@@ -144,9 +144,7 @@ export default function SolicitationUserCreate() {
 
       if (hasCard) {
         schema = Yup.object().shape({
-          holderName: Yup.string()
-            .min(14, 'CPF invalido')
-            .required('Campo obrigatório'),
+          holderName: Yup.string().required('Campo obrigatório'),
           cod: Yup.string()
             .min(3, 'Codigo invalido')
             .required('Campo obrigatório'),
@@ -159,9 +157,7 @@ export default function SolicitationUserCreate() {
           numberCard: Yup.string()
             .min(19, 'Numero do cartão invalido')
             .required('Campo obrigatório'),
-          holderName: Yup.string()
-            .min(14, 'CPF invalido')
-            .required('Campo obrigatório'),
+          holderName: Yup.string().required('Campo obrigatório'),
           cod: Yup.string()
             .min(3, 'Codigo invalido')
             .required('Campo obrigatório'),

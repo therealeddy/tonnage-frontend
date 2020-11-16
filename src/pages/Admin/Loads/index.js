@@ -92,12 +92,6 @@ export default function Loads() {
                 <div className="box-load">
                   <div className="title">{item.name}</div>
                   <p>{item.description}</p>
-                  {/* <div className="bene">Beneficios</div>
-                <ul>
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Integer molestie lorem at massa</li>
-              </ul> */}
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="price">
                       {convertFloatInPrice(item.price)}
