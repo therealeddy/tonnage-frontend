@@ -73,8 +73,6 @@ export default function SolicitationAdminEdit({ match }) {
 
     const { route: resRoute } = response.data;
 
-    console.tron.log(response.data);
-
     setDestiny({
       result: resRoute.destination_address,
       lat: resRoute.destination_latitude,
@@ -103,8 +101,6 @@ export default function SolicitationAdminEdit({ match }) {
 
   async function handleSubmit(data) {
     setLoading(true);
-
-    console.tron.log(data);
 
     const response = await api.post('/evaluation', {
       rating,
@@ -263,7 +259,6 @@ export default function SolicitationAdminEdit({ match }) {
               </>
             )}
           </div>
-          {console.tron.log(status)}
           <RenderAvaliacao />
         </div>
       </div>

@@ -40,8 +40,6 @@ function Dashboard() {
         evaluations,
       } = response.data;
 
-      console.tron.log(evaluations);
-
       let priceTotal = 0;
       let priceThisMonth = 0;
       let priceThisWeek = 0;

@@ -28,8 +28,6 @@ export default function ConfigProfile() {
 
   const formRef = useRef(null);
 
-  console.tron.log(roleName);
-
   const [user, setUser] = useState({
     nickname: '',
     name: '',
