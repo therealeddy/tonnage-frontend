@@ -11,7 +11,7 @@ import api from '~/services/api';
 
 import { Container } from './styles';
 
-function Configuration() {
+function ConfigCard() {
   const [modalShow, setModalShow] = useState(false);
 
   const [numberCard, setNumberCard] = useState('');
@@ -106,9 +106,6 @@ function Configuration() {
   return (
     <Container className="animated fadeIn">
       <div className="container">
-        <div className="mb-5 pb-5">
-          <h1>Configurações</h1>
-        </div>
         <h2 className="mb-4">Cartão de crédito</h2>
 
         {loading ? (
@@ -177,4 +174,4 @@ function Configuration() {
   );
 }
 
-export default Configuration;
+export default ConfigCard;

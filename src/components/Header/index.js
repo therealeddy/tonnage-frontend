@@ -39,7 +39,7 @@ export default function Header() {
           <div className="nickname">
             {`${roleName}, ${nickname}`}
             <img
-              src="https://api.adorable.io/avatars/40/abott@adorable.io.png"
+              src="https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png"
               alt="avatar"
             />
           </div>

@@ -4,4 +4,4 @@ export { default as SolicitationUserView } from './Solicitation/ViewSolicitation
 
 export { default as Dashboard } from './Dashboard';
 
-export { default as Configuration } from './Configuration';
+export { default as ConfigCard } from './ConfigCard';

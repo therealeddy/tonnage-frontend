@@ -27,7 +27,6 @@ import {
   SolicitationUserCreate,
   SolicitationUser,
   SolicitationUserView,
-  Configuration,
 } from '~/pages/Client';
 import { SolicitationViewTrucker } from '~/pages/Trucker';
 
@@ -175,13 +174,6 @@ export default function Routes() {
           component={SolicitationViewTrucker}
           isPrivate
           roles={['trucker']}
-        />
-
-        <Route
-          path="/configuration"
-          component={Configuration}
-          isPrivate
-          roles={['client']}
         />
 
         <Route
