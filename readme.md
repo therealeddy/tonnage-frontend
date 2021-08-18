@@ -15,7 +15,7 @@
 
 ## Overview
 
-Tonnage Front-End -  Completion of course work.
+Tonnage Frontend -  Completion of course work.
 
 - **[Author](#author)**
 - **[License](#license)**
