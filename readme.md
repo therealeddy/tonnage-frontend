@@ -1,5 +1,5 @@
 <h1 align="center">
- 💻 Tonnage Front-End 💻
+ 💻 Tonnage Frontend 💻
 </h1>
 
 <br>
