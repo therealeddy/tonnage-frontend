@@ -2,6 +2,7 @@ import { createGlobalStyle, keyframes } from 'styled-components';
 
 import './bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const rotate = keyframes`
   from {
@@ -22,7 +23,6 @@ export default createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-    list-style-type: none;
     font-family: 'Roboto', sans-serif;
   }
 
@@ -39,7 +39,10 @@ export default createGlobalStyle`
     display: block;
     width: 100%;
     height: 100%;
-    padding: 150px 0 30px 300px;
+    padding: 100px 0 30px;
+    @media (min-width: 992px) {
+      padding: 150px 0 30px 300px;
+    }
   }
 
   .z-depth-1 {
@@ -85,6 +88,38 @@ export default createGlobalStyle`
     user-select: none;
     svg {
       animation: ${rotate} 0.4s linear infinite;
+    }
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+
+  textarea {
+    height: 150px;
+    resize: none !important;
+  }
+
+  .box-load {
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .bene {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .price {
+      font-weight: bold;
+    }
+    ul {
+      margin-left: 20px;
     }
   }
 `;

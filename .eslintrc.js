@@ -49,6 +49,7 @@ module.exports = {
     'consistent-return': 'off',
     'no-nested-ternary': 'off',
     'no-prototype-builtins': 'error',
+    'prefer-const': 'off',
     'import-helpers/order-imports': [
       'warn',
       {
@@ -62,6 +63,7 @@ module.exports = {
     'no-plusplus': 'off',
     'react/prop-types': 'error',
     'react/no-unescaped-entities': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
   },
   settings: {
     'import/resolver': 'babel-plugin-root-import',

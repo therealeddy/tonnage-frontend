@@ -9,7 +9,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function ItemHistory({ history }) {
-  const { action, id_solicitation } = history;
+  const {
+    action,
+    id_solicitation,
+    user: { name: nameUser },
+  } = history;
 
   const size = 25;
   const color = '#ffffff';
@@ -22,7 +26,8 @@ export default function ItemHistory({ history }) {
             <FaCartPlus size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"Criado"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"Criado"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>
@@ -36,7 +41,8 @@ export default function ItemHistory({ history }) {
             <IoMdCalendar size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"Agendado"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"Agendado"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>
@@ -50,7 +56,8 @@ export default function ItemHistory({ history }) {
             <TiArrowShuffle size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"Retirado"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"Retirado"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>
@@ -64,7 +71,8 @@ export default function ItemHistory({ history }) {
             <FaTruck size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"A caminho"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"A caminho"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>
@@ -78,7 +86,8 @@ export default function ItemHistory({ history }) {
             <MdDone size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"Entregue"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"Entregue"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>
@@ -92,7 +101,8 @@ export default function ItemHistory({ history }) {
             <AiFillExclamationCircle size={size} color={color} />
           </div>
           <div>
-            Status mudado para <strong>"Cancelado"</strong> da{' '}
+            <strong>{nameUser}</strong> mudou o status para{' '}
+            <strong>"Cancelado"</strong> da{' '}
             <Link to={`/requests/edit/${id_solicitation}`}>
               Solicitação #{id_solicitation}
             </Link>

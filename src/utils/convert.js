@@ -7,7 +7,7 @@ export const convertTime = (seconds) => {
 };
 
 export const convertPrice = (str) => {
-  const array = str.split('R$')[1].split('.');
+  const array = str.trim().split('R$')[1].split('.');
 
   const strReplace = {
     value: '',
@@ -21,7 +21,7 @@ export const convertPrice = (str) => {
 };
 
 export const convertFloatInPrice = (price) => {
-  return price.toLocaleString('pt-BR', {
+  return Number(price).toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
