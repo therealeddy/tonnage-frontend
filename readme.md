@@ -21,7 +21,7 @@ Tonnage Frontend -  Completion of course work.
 - **[License](#license)**
 - **[Show your support](#show-your-support)**
   
-  <br><br>
+<br><br>
 
 ## Author
 
